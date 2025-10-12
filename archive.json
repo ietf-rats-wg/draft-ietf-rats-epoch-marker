@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-09T00:55:04.044019+00:00",
+  "timestamp": "2025-10-12T00:57:43.700905+00:00",
   "repo": "ietf-rats/draft-birkholz-rats-epoch-marker",
   "labels": [
     {
@@ -2572,6 +2572,173 @@
           "body": "",
           "createdAt": "2025-10-08T12:51:17Z",
           "updatedAt": "2025-10-08T12:51:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOHOmBp86s4d4-",
+      "title": " Add more links",
+      "url": "https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/pull/45",
+      "state": "MERGED",
+      "author": "ionut-arm",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": " Adding some more references in the terminology section, and a link\r\n for \"trusted clock\" disambiguation.\r\n\r\nLet me know if I should link or define other terms (e.g., Epoch Bell).",
+      "createdAt": "2025-10-09T12:04:51Z",
+      "updatedAt": "2025-10-09T12:52:31Z",
+      "baseRepository": "ietf-rats/draft-birkholz-rats-epoch-marker",
+      "baseRefName": "main",
+      "baseRefOid": "22e459715b5a5e61392f57628f149adc1ffef47f",
+      "headRepository": "ionut-arm/draft-birkholz-rats-epoch-marker",
+      "headRefName": "more-links",
+      "headRefOid": "ed0d2b9285c021eb02e233b43eed6a08fe465052",
+      "closedAt": "2025-10-09T12:52:30Z",
+      "mergedAt": "2025-10-09T12:52:30Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "2e5fdbe10274a70693941c7c166583aab2df34e9"
+      },
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Let me know if I should link or define other terms (e.g., Epoch Bell).\r\n\r\nI am not aware of any previous definition of the term \"Epoch Bell\u201d.  It\u2019s introduced early on in the document (in both the abstract and intro), which shoudl probably suffice.\r\n",
+          "createdAt": "2025-10-09T12:16:01Z",
+          "updatedAt": "2025-10-09T12:16:01Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHOmBp87FzqrX",
+          "commit": {
+            "abbreviatedOid": "d28cc5a"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "noice!",
+          "createdAt": "2025-10-09T12:10:05Z",
+          "updatedAt": "2025-10-09T12:10:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHOmBp87F0L5H",
+          "commit": {
+            "abbreviatedOid": "d28cc5a"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks!",
+          "createdAt": "2025-10-09T12:43:21Z",
+          "updatedAt": "2025-10-09T12:43:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHOmBp87Fztqj",
+          "commit": {
+            "abbreviatedOid": "d28cc5a"
+          },
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-09T12:13:27Z",
+          "updatedAt": "2025-10-09T12:48:30Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\nThis document makes use of the following terms from other documents:\r\n```\r\n(I don't think we have to give them back :-)",
+              "createdAt": "2025-10-09T12:13:28Z",
+              "updatedAt": "2025-10-09T12:48:30Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOHOmBp86s5DTo",
+      "title": "ack := ionut",
+      "url": "https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/pull/46",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-09T12:54:29Z",
+      "updatedAt": "2025-10-09T13:17:09Z",
+      "baseRepository": "ietf-rats/draft-birkholz-rats-epoch-marker",
+      "baseRefName": "main",
+      "baseRefOid": "2e5fdbe10274a70693941c7c166583aab2df34e9",
+      "headRepository": "ietf-rats/draft-birkholz-rats-epoch-marker",
+      "headRefName": "ionut-ack",
+      "headRefOid": "7d757655cbd9cb73473fca13c5fc803550e412f6",
+      "closedAt": "2025-10-09T13:17:04Z",
+      "mergedAt": "2025-10-09T13:17:04Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "ebc6e52b27b8c4e796f390c6c469751d70fa9e7e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHOmBp87F0tbn",
+          "commit": {
+            "abbreviatedOid": "7d75765"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": ":sparkle:",
+          "createdAt": "2025-10-09T13:16:21Z",
+          "updatedAt": "2025-10-09T13:16:21Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDOHOmBp86s5vxd",
+      "title": "Ack nit fixed",
+      "url": "https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/pull/47",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "for Ionuts Ack",
+      "createdAt": "2025-10-09T13:45:25Z",
+      "updatedAt": "2025-10-09T13:48:50Z",
+      "baseRepository": "ietf-rats/draft-birkholz-rats-epoch-marker",
+      "baseRefName": "main",
+      "baseRefOid": "ebc6e52b27b8c4e796f390c6c469751d70fa9e7e",
+      "headRepository": "ietf-rats/draft-birkholz-rats-epoch-marker",
+      "headRefName": "fixing-Ionut",
+      "headRefOid": "c46373c5695b618b487389f8828593221db55e1b",
+      "closedAt": "2025-10-09T13:48:49Z",
+      "mergedAt": "2025-10-09T13:48:49Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "3faed951ea80a278fcf49d9bd30207ac4ca7ee7b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHOmBp87F1QEI",
+          "commit": {
+            "abbreviatedOid": "c46373c"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "soz!",
+          "createdAt": "2025-10-09T13:46:27Z",
+          "updatedAt": "2025-10-09T13:46:27Z",
           "comments": []
         }
       ]
