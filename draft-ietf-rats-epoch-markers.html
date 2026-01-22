@@ -17,23 +17,22 @@ Instead, the reception of a specific Epoch Marker establishes a new epoch that i
 This document defines Epoch Marker types, including CBOR time tags, RFC 3161 TimeStampToken, and nonce-like structures.
 It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, which serve as vehicles for signed protocol messages. 
     ' name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-rats-epoch-markers-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.4.0
+    lxml 6.0.2
+    platformdirs 4.5.1
     pycountry 24.6.1
-    PyYAML 6.0.2
+    PyYAML 6.0.3
     requests 2.32.5
-    setuptools 80.9.0
-    wcwidth 0.2.14
+    wcwidth 0.3.0
 -->
 <link href="draft-ietf-rats-epoch-markers.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1052,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Epoch Markers</td>
-<td class="right">October 2025</td>
+<td class="right">January 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 12 April 2026</td>
+<td class="center">Expires 26 July 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-epoch-markers-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-09" class="published">9 October 2025</time>
+<time datetime="2026-01-22" class="published">22 January 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-12">12 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-07-26">26 July 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1140,7 +1139,7 @@ It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1149,7 +1148,7 @@ It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, 
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1312,7 +1311,7 @@ Examples include the Collection CMW in <span>[<a href="#I-D.ietf-lamps-csr-attes
             <p id="section-1.1-2.2.1">"freshness" and "epoch" as defined in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-10" class="relref">Section 10</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span><a href="#section-1.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.1-2.3">
-            <p id="section-1.1-2.3.1">"handle" as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-14#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-1.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-1.1-2.3.1">"handle" as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-1.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.1-2.4">
             <p id="section-1.1-2.4.1">"Time-Stamp Authority" as defined by <span>[<a href="#RFC3161" class="cite xref">RFC3161</a>]</span><a href="#section-1.1-2.4.1" class="pilcrow">¶</a></p>
@@ -1345,13 +1344,13 @@ The Epoch Markers defined in this document are a solution that includes the less
 In general, there are three major interaction models used in remote attestation:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-2.1">
-          <p id="section-3-2.1.1">ad-hoc requests (e.g., via challenge-response requests addressed at Epoch Bells), corresponding to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-14#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.1.1">ad-hoc requests (e.g., via challenge-response requests addressed at Epoch Bells), corresponding to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.2">
-          <p id="section-3-2.2.1">unsolicited distribution (e.g., via uni-directional methods, such as broad- or multicasting from Epoch Bells), corresponding to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-14#section-7.2" class="relref">Section 7.2</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.2.1">unsolicited distribution (e.g., via uni-directional methods, such as broad- or multicasting from Epoch Bells), corresponding to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-7.2" class="relref">Section 7.2</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.3">
-          <p id="section-3-2.3.1">solicited distribution (e.g., via a subscription to Epoch Bells), corresponding to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-14#section-7.3" class="relref">Section 7.3</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.3.1">solicited distribution (e.g., via a subscription to Epoch Bells), corresponding to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-7.3" class="relref">Section 7.3</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span><a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-3-3">In all three interaction models, Epoch Markers can be used as content for the generic information element <code>handle</code> as introduced by <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>.
@@ -1972,7 +1971,7 @@ number of this RFC and remove this note.</span><a href="#section-7-1" class="pil
 <dl class="references">
 <dt id="I-D.ietf-cbor-edn-literals">[I-D.ietf-cbor-edn-literals]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"CBOR Extended Diagnostic Notation (EDN)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-edn-literals-18</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-18">https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-18</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"CBOR Extended Diagnostic Notation (EDN)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-edn-literals-19</span>, <time datetime="2025-10-16" class="refDate">16 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-19">https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-19</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
@@ -2067,11 +2066,11 @@ number of this RFC and remove this note.</span><a href="#section-7-1" class="pil
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-reference-interaction-models">[I-D.ietf-rats-reference-interaction-models]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">E. Voit</span>, <span class="refTitle">"Reference Interaction Models for Remote Attestation Procedures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-reference-interaction-models-14</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-14">https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-14</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">E. Voit</span>, <span class="refTitle">"Reference Interaction Models for Remote Attestation Procedures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-reference-interaction-models-15</span>, <time datetime="2025-11-05" class="refDate">5 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15">https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-scitt-architecture">[I-D.ietf-scitt-architecture]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Delignat-Lavaud, A.</span>, <span class="refAuthor">Fournet, C.</span>, <span class="refAuthor">Deshpande, Y.</span>, and <span class="refAuthor">S. Lasker</span>, <span class="refTitle">"An Architecture for Trustworthy and Transparent Digital Supply Chains"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-scitt-architecture-21</span>, <time datetime="2025-09-30" class="refDate">30 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-scitt-architecture-21">https://datatracker.ietf.org/doc/html/draft-ietf-scitt-architecture-21</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Delignat-Lavaud, A.</span>, <span class="refAuthor">Fournet, C.</span>, <span class="refAuthor">Deshpande, Y.</span>, and <span class="refAuthor">S. Lasker</span>, <span class="refTitle">"An Architecture for Trustworthy and Transparent Digital Supply Chains"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-scitt-architecture-22</span>, <time datetime="2025-10-10" class="refDate">10 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-scitt-architecture-22">https://datatracker.ietf.org/doc/html/draft-ietf-scitt-architecture-22</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.cbor-tags">[IANA.cbor-tags]</dt>
         <dd>
@@ -2141,8 +2140,8 @@ d9 03e9                                 # tag(1001)
 <a href="#name-cbor-epoch-marker-based-on-e" class="selfRef">CBOR Epoch Marker based on `etime` (pretty hex)</a>
         </figcaption></figure>
 </div>
-<p id="appendix-A-5">The example in <a href="#fig-ex-2" class="auto internal xref">Figure 5</a> shows a CWT-signed Epoch Marker with <code>epoch-tick</code> as the Epoch Marker type.<a href="#appendix-A-5" class="pilcrow">¶</a></p>
-<span id="name-cwt-epoch-marker-based-on-e"></span><div id="fig-ex-2">
+<p id="appendix-A-5">The example in <a href="#fig-ex-2" class="auto internal xref">Figure 5</a> shows an Epoch Marker with an <code>etime</code> as the Epoch Marker type carried within a CWT.<a href="#appendix-A-5" class="pilcrow">¶</a></p>
+<span id="name-cbor-epoch-marker-based-on-et"></span><div id="fig-ex-2">
 <figure id="figure-5">
         <div class="alignCenter art-cbor-diag art-text artwork" id="appendix-A-6.1">
 <pre>
@@ -2154,19 +2153,55 @@ d9 03e9                                 # tag(1001)
   } &gt;&gt;,
   / unprotected / {},
   / payload / &lt;&lt; {
+    / epoch marker / 2000: / etime / 1001({
+      1: 851042397,
+      -10: "America/Los_Angeles",
+      -11: { "u-ca": "hebrew" }
+    }),
+    / eat_nonce /  10: h'\
+   c53a8c924f5a27877951ace250709aa64a45311840ca1c55da09af026a7a9c1c',
     / iss / 1 : "ACME epoch bell",
     / aud / 3 : "ACME protocol clients",
-    / epoch marker / 2000: 26982(h'\
-   482e829ad29ac6ea6eda2d47d1d93a002bf41d9d88710ba972c36e59038f78b3')
     / nbf / 5 : 1757929800,
     / exp / 4 : 1757929860
   } &gt;&gt;,
-  / signature / h'face5190'
+  / signature / h'737461747574617279'
 ])
 </pre>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
-<a href="#name-cwt-epoch-marker-based-on-e" class="selfRef">CWT Epoch Marker based on `epoch-tick` (EDN)</a>
+<a href="#name-cbor-epoch-marker-based-on-et" class="selfRef">CBOR Epoch Marker based on `etime` carried within a CWT (EDN)</a>
+        </figcaption></figure>
+</div>
+<p id="appendix-A-7">The encoded data item in CBOR pretty-printed form (hex with comments) is shown in <a href="#fig-ex-2-pretty" class="auto internal xref">Figure 6</a>.<a href="#appendix-A-7" class="pilcrow">¶</a></p>
+<span id="name-cbor-epoch-marker-based-on-eti"></span><div id="fig-ex-2-pretty">
+<figure id="figure-6">
+        <div class="alignCenter art-cbor-pretty art-text artwork" id="appendix-A-8.1">
+<pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+d2                                      # tag(18)
+   84                                   # array(4)
+      43                                # bytes(3)
+         a10126                         # "\xA1\u0001&amp;"
+      a0                                # map(0)
+      58 88                             # bytes(136)
+         \
+a61907d0d903e9a3011a32b9e05d2973416d65726963612f4c6f735f416e67656c65\
+732aa164752d6361666865627265770a5820c53a8c924f5a27877951ace250709aa6\
+4a45311840ca1c55da09af026a7a9c1c016f41434d452065706f63682062656c6c03\
+7541434d452070726f746f636f6c20636c69656e7473051a68c7e148041a68c7e18\
+4 # "\xA6\u0019\a\xD0\xD9\u0003\xE9\xA3\u0001\u001A2\xB9\xE0])\
+sAmerica/Los_Angeles*\xA1du-cafhebrew\nX \xC5:\x8C\x92OZ'\x87yQ\xAC\\
+xE2Pp\x9A\xA6JE1\u0018@\xCA\u001CU\xDA\t\xAF\u0002jz\x9C\u001C\\
+u0001oACME epoch bell\u0003uACME protocol clients\u0005\u001Ah\xC7\\
+                                       xE1H\u0004\u001Ah\xC7\xE1\x84"
+      49                                # bytes(9)
+         737461747574617279             # "statutary"
+</pre>
+</div>
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-cbor-epoch-marker-based-on-eti" class="selfRef">CBOR Epoch Marker based on `etime` carried within a CWT (pretty hex)</a>
         </figcaption></figure>
 </div>
 <div id="classic-tstinfo">
