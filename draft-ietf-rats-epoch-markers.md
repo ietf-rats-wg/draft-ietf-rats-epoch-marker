@@ -391,7 +391,7 @@ Conversely, applying the first signature to an Epoch Marker always makes the iss
 
 # Security Considerations {#sec-seccons}
 
-The following subsections approach categories of threats and security issues that may affect systems using Epoch Markers.
+The following subsections discuss threats and security issues that may affect systems using Epoch Markers.
 
 ## Trust Model
 
