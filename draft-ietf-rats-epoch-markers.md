@@ -401,6 +401,7 @@ The following subsections discuss threats and security issues that may affect sy
 
 ## Epoch Signalling Issues
 
+{{Section 12.3 of -rats-arch}} provides a good introduction to attacks on conveyance of Epoch Markers.
 A network adversary can replay validly signed Epoch Markers or delay distribution, and differential latency can lead to different parties having different views of the “current” epoch.
 Deployments should define an explicit acceptance policy (e.g., bounded acceptance window) that accounts for skew.
 
