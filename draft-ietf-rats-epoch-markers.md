@@ -132,6 +132,9 @@ However, CWTs are not the only containers in which Epoch Markers can be embedded
 Epoch Markers can be included in any type of message that allows for the embedding of opaque bytes or CBOR data items.
 Examples include the Collection CMW in {{-csr-attestation}}, Evidence formats such as {{TCG-CoEvidence}} or {{-rats-eat}}, Attestation Results formats such as {{-rats-ar4si}}, or the CWT Claims Header Parameter of {{-scitt-receipts}}.
 
+Epoch Markers can be used in: other data formats as embeddings; protocols as information elements; systems integrating the previously mentioned protocols or data formats; deployments of such systems.
+Any of these can be considered a "user" of Epoch Markers, and will be referenced as using Epoch Markers throughout the document.
+
 ## Terminology
 
 This document makes use of the following terms from other documents:
@@ -358,7 +361,7 @@ The emitter MUST follow the requirements in {{sec-nonce-reqs}}.
 #### Usage
 
 Proving freshness requires receiver-side state to identify the “next unused” tick.
-Deployments SHOULD define how missing/out-of-order ticks are handled and how resynchronization occurs, as per {{sec-state-seq-mgmt}}.
+Systems using Epoch Tick lists SHOULD define how missing/out-of-order ticks are handled and how resynchronization occurs, as per {{sec-state-seq-mgmt}}.
 
 ### Strictly Monotonically Increasing Counter {#sec-strictly-monotonic}
 
@@ -378,7 +381,7 @@ strictly-monotonic-counter:
 
 #### Usage
 
-Deployments SHOULD follow the guidance in {{sec-state-seq-mgmt}} in establishing an Epoch Marker acceptance policy for receivers.
+Systems that use Epoch Markers SHOULD follow the guidance in {{sec-state-seq-mgmt}} in establishing an Epoch Marker acceptance policy for receivers.
 To prove freshness, receivers SHOULD track the highest accepted counter and ensure it fulfills the acceptance policy.
 
 ## Time Requirements {#sec-time-reqs}
@@ -398,10 +401,10 @@ All receivers MUST be able to accommodate the maximum size.
 
 Data structures containing Epoch Markers could be reordered in-flight even without malicious intent, leading to perceived sequencing issues.
 Some Epoch Marker types thus require receiver state to detect replay/rollback or establish sequencing.
-Deployments SHOULD define an explicit acceptance policy (e.g., bounded acceptance window) that accounts for reordering of markers.
+Systems that use Epoch Markers SHOULD define an explicit acceptance policy (e.g., bounded acceptance window) that accounts for reordering of markers.
 
 There is a trade-off between keeping a single “global” epoch view versus per-Attester state at the Verifier: global-only policies can exacerbate latency-induced false replay rejections, while per-Attester tracking can be costly.
-Deployments SHOULD document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.
+Systems that use Epoch Markers SHOULD document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.
 
 # Signature Requirements {#sec-signature-reqs}
 
@@ -413,7 +416,7 @@ Conversely, applying the first signature to an Epoch Marker always makes the iss
 In distributed systems that rely on Epoch Markers for conveyance of freshness, the Epoch Bell plays a significant role in the assumed trust model.
 Freshness decisions derived from Epoch Markers depend on the Epoch Bell’s key(s) and correct behavior.
 If the Epoch Bell key is compromised, or the Bell is malicious/misconfigured, an attacker can emit valid-looking “fresh” Epoch Markers.
-Deployments generally need to protect Bell signing keys (secure storage, rotation, revocation) and scope acceptance to the intended trust domain (e.g., expected issuer/trust anchor).
+System deployments using Epoch Markers generally need to protect Bell signing keys (secure storage, rotation, revocation) and scope acceptance to the intended trust domain (e.g., expected issuer/trust anchor).
 Similarly, the Bell's clock needs to be securely sourced and managed, to prevent attacks that skew the Bell's perception of time.
 
 ## Epoch Signalling Issues
@@ -424,7 +427,7 @@ A network adversary can replay validly signed Epoch Markers or delay distributio
 The epoch (acceptable window) duration is an operational security parameter: if too long, an Attester can create “good” Evidence in a good state and release it later while the epoch is still acceptable (notably for epoch-tick, epoch-tick-list, and strictly-monotonic-counter); if too short, distant Attesters may be rejected as stale due to latency.
 Epoch Markers are also designed to be reusable by multiple consumers, unlike nonces.
 Where per-session uniqueness is required, protocols typically need to bind Epoch Markers to an explicit nonce (e.g., see {{sec-epoch-markers}}).
-Finally, deployments are normally required to pin which Epoch Marker types are acceptable for a given trust domain to avoid downgrade.
+Finally, system deployments using Epoch Markers are normally required to pin which Epoch Marker types are acceptable for a given trust domain to avoid downgrade.
 
 ## Operational Examples
 
@@ -437,7 +440,7 @@ The Verifier checks that (1) the nonce matches its challenge, (2) the Epoch Mark
 This pairing gives per-session uniqueness while still allowing Epoch Marker reuse by multiple consumers.
 
 * *Long-latency paths (e.g., LoRaWAN or DTN profiles)*: High propagation and queuing delays make tight epoch windows brittle.
-Deployments can pre-provision an epoch-tick-list to Attesters so that each interaction consumes the next tick, with the Verifier keeping per-Attester sequencing state ({{sec-state-seq-mgmt}}).
+In system deployments using Epoch Markers, epoch-tick-list can be pre-provisioned to Attesters so that each interaction consumes the next tick, with the Verifier keeping per-Attester sequencing state ({{sec-state-seq-mgmt}}).
 Epoch duration should cover worst-case delivery plus clock skew of the Bell, and acceptance policies should allow an overlap (e.g., current and immediately previous epoch) to absorb in-flight drift while still rejecting replays beyond that window.
 
 * *Large fleets sharing a Bell*: When many Attesters reuse the same Epoch Marker, per-Attester state at the Verifier may be impractical.
