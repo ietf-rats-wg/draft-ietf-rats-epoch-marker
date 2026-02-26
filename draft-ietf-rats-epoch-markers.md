@@ -5,13 +5,13 @@ title: Epoch Markers
 abbrev: Epoch Markers
 docname: draft-ietf-rats-epoch-markers-latest
 stand_alone: true
-area: Security
+area: "Security"
 wg: RATS Working Group
 kw: Internet-Draft
 
 venue:
-  mail: rats@ietf.org
-  github: ietf-rats/draft-birkholz-rats-epoch-marker
+  mail: "rats@ietf.org"
+  github: "ietf-rats-wg/draft-birkholz-rats-epoch-marker"
 
 cat: std
 consensus: true
