@@ -208,7 +208,7 @@ The following Epoch Marker types are defined in this document:
 
 ## Epoch Marker Types {#epoch-payloads}
 
-This section specifies the Epoch Marker types listed in {{fig-epoch-marker-cddl}}
+This section specifies the Epoch Marker types listed in {{fig-epoch-marker-cddl}}.
 
 ### CBOR Time Tags
 
