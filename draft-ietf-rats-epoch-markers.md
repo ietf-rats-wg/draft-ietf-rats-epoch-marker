@@ -628,4 +628,9 @@ TSTInfo ::= SEQUENCE  {
 # Acknowledgements
 {:unnumbered}
 
-TODO
+The authors would like to thank
+Carl Wallace,
+Jeremy O'Donoghue
+and
+Jun Zhang
+for their reviews, suggestions and comments.
