@@ -324,12 +324,12 @@ Internet-Draft                Epoch Markers                   March 2026
    intervals are required.  Taken as an opaque value, it is possible to
    use Epoch Markers as values for a nonce field in existing data
    structures or protocols that already support extra data fields, such
-   as TPM [TCG-TPM2].  Similarities in the usage of nonces and Epoch
-   Markers can sometimes lead to applications where both are used in the
-   same interaction, albeit in different places and for different
-   purposes.  One example of such an application scenario is the
-   "nested" use of classical nonces and Epoch Markers, whereby an Epoch
-   Marker is requested to be used as a nonce value for a specific data
+   as extraData in TPMS_ATTEST [TCG-TPM2].  Similarities in the usage of
+   nonces and Epoch Markers can sometimes lead to applications where
+   both are used in the same interaction, albeit in different places and
+   for different purposes.  One example of such an application scenario
+   is the "nested" use of classical nonces and Epoch Markers, whereby an
+   Epoch Marker is requested to be used as a nonce value for a specific
 
 
 
@@ -338,15 +338,16 @@ Birkholz, et al.        Expires 3 September 2026                [Page 6]
 Internet-Draft                Epoch Markers                   March 2026
 
 
-   structure, while a locally generated nonce is used to retrieve that
-   Epoch Marker via an "outer" ad hoc interaction (e.g., nonce retrieval
-   protocols that interact with an Epoch Bell to fetch an Epoch Marker
-   to be used as a nonce).  As some Epoch Marker types represent certain
-   timestamp variants, these Epoch Markers or the secure conveyance
-   method they are used in do not necessarily have a hard-coded message
-   imprint, as is always the case with [RFC3161] TimeStampTokens.
-   Essentially, not all Epoch Marker types support a binding between a
-   message and an Epoch Marker (unlike the example in Figure 5.
+   data structure, while a locally generated nonce is used to retrieve
+   that Epoch Marker via an "outer" ad hoc interaction (e.g., nonce
+   retrieval protocols that interact with an Epoch Bell to fetch an
+   Epoch Marker to be used as a nonce).  As some Epoch Marker types
+   represent certain timestamp variants, these Epoch Markers or the
+   secure conveyance method they are used in do not necessarily have a
+   hard-coded message imprint, as is always the case with [RFC3161]
+   TimeStampTokens.  Essentially, not all Epoch Marker types support a
+   binding between a message and an Epoch Marker (unlike the example in
+   Figure 5.
 
    The following Epoch Marker types are defined in this document:
 
@@ -385,7 +386,6 @@ Internet-Draft                Epoch Markers                   March 2026
    The CBOR Time Tag represents a freshly sourced timestamp represented
    as either time or tdate (Sections 3.4.2 and 3.4.1 of RFC 8949
    [STD94], Appendix D of [RFC8610]), or etime (Section 3 of [RFC9581]).
-
 
 
 
