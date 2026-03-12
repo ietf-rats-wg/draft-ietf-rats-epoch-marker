@@ -228,7 +228,7 @@ CBOR Time Tags are CBOR time representations choosing from CBOR tag 0 (`tdate`, 
 The CBOR Time Tag represents a freshly sourced timestamp represented as either `time` or `tdate`
 ({{Sections 3.4.2 and 3.4.1 of RFC8949@-CBOR}}, {{Appendix D of -CDDL}}), or `etime` ({{Section 3 of -CBOR-ETIME}}).
 The `etime` rule shown in the CDDL above is imported from {{Section 6 of -CBOR-ETIME}}; RFC 9581 remains the authoritative specification of CBOR tag 1001, and this document neither updates nor redefines it.
-The present draft merely profiles the use of that existing type for Epoch Markers.
+This document merely profiles `etime` for use with Epoch Markers.
 
 
 #### Creation
