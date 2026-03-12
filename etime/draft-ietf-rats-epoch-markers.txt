@@ -395,8 +395,9 @@ Internet-Draft                Epoch Markers                   March 2026
 
 
    [RFC9581]; RFC 9581 remains the authoritative specification of CBOR
-   tag 1001, and this document neither updates nor redefines it.  This
-   document merely profiles etime for use with Epoch Markers.
+   tag 1001, and this document neither updates nor redefines it.  The
+   present draft merely profiles the use of that existing type for Epoch
+   Markers.
 
 4.1.1.1.  Creation
 
@@ -440,7 +441,6 @@ Internet-Draft                Epoch Markers                   March 2026
 
    The TST-info-based-on-CBOR-time-tag is semantically equivalent to
    classical [RFC3161] TSTInfo, rewritten using the CBOR type system.
-
 
 
 
