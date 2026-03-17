@@ -101,9 +101,9 @@ Table of Contents
        4.1.2.  Classical RFC 3161 TST Info . . . . . . . . . . . . .   8
        4.1.3.  CBOR-encoded RFC3161 TST Info . . . . . . . . . . . .   8
        4.1.4.  Epoch Tick  . . . . . . . . . . . . . . . . . . . . .  11
-       4.1.5.  Epoch Tick List . . . . . . . . . . . . . . . . . . .  11
+       4.1.5.  Epoch Tick List . . . . . . . . . . . . . . . . . . .  12
        4.1.6.  Strictly Monotonically Increasing Counter . . . . . .  12
-     4.2.  Time Requirements . . . . . . . . . . . . . . . . . . . .  12
+     4.2.  Time Requirements . . . . . . . . . . . . . . . . . . . .  13
      4.3.  Nonce Requirements  . . . . . . . . . . . . . . . . . . .  13
      4.4.  State and Sequencing Management . . . . . . . . . . . . .  13
 
@@ -114,8 +114,8 @@ Birkholz, et al.        Expires 18 September 2026               [Page 2]
 Internet-Draft                Epoch Markers                   March 2026
 
 
-   5.  Signature Requirements  . . . . . . . . . . . . . . . . . . .  13
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
+   5.  Signature Requirements  . . . . . . . . . . . . . . . . . . .  14
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
      6.1.  Epoch Signalling Issues . . . . . . . . . . . . . . . . .  14
      6.2.  Operational Examples  . . . . . . . . . . . . . . . . . .  14
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
@@ -380,12 +380,12 @@ Internet-Draft                Epoch Markers                   March 2026
 
    cbor-time = tdate / time / etime
 
-   etime = #6.1001({* (int/tstr) => any})
+   ;# import etime from rfc9581
 
    The CBOR Time Tag represents a freshly sourced timestamp represented
    as either time or tdate (Sections 3.4.2 and 3.4.1 of RFC 8949
    [STD94], Appendix D of [RFC8610]), or etime (Section 3 of [RFC9581]).
-
+   The etime rule shown in the CDDL above is imported from Section 6 of
 
 
 
@@ -393,6 +393,10 @@ Birkholz, et al.        Expires 18 September 2026               [Page 7]
 
 Internet-Draft                Epoch Markers                   March 2026
 
+
+   [RFC9581]; RFC 9581 remains the authoritative specification of CBOR
+   tag 1001, and this document neither updates nor redefines it.  This
+   document merely profiles etime for use with Epoch Markers.
 
 4.1.1.1.  Creation
 
@@ -436,10 +440,6 @@ Internet-Draft                Epoch Markers                   March 2026
 
    The TST-info-based-on-CBOR-time-tag is semantically equivalent to
    classical [RFC3161] TSTInfo, rewritten using the CBOR type system.
-
-
-
-
 
 
 
@@ -513,26 +513,54 @@ Internet-Draft                Epoch Markers                   March 2026
    eTime:
       The time at which the tst-info has been created by the TSA.  Cf.
       genTime, Section 2.4.2 of [RFC3161].  Encoded as extended time
-      [RFC9581], indicated by CBOR tag 1001, profiled as follows:
+      [RFC9581], indicated by CBOR tag 1001.  A separate tag is
+      unnecessary because the profiled form remains an etime item
+      carried with tag 1001.  RFC 9581 defines tag 1001 and its
+      semantics; this document constrains one valid etime shape for
+      Epoch Markers but does not introduce a new CBOR tag or alter the
+      definition of etime.  The resulting profiled-etime remains a
+      subset/profile of etime encoded with tag 1001 and is defined as
+      follows:
 
    *  The "base time" is encoded using key 1, indicating Posix time as
-      int or float.
+      int or float, to align the profile with the baseline
+      representation defined in [RFC9581].
 
    *  The stated "accuracy" is encoded using key -8, which indicates the
       maximum allowed deviation from the value indicated by "base time".
       The duration map is profiled to disallow string keys.  This is an
-      optional field.
+      optional field specialized to the needs of this profile.
 
-   *  The map MAY also contain one or more integer keys, which may
-      encode supplementary information
-      // Allowing unsigned integer (i.e., critical) keys goes counter
-      // interoperability.
+   *  The map MUST include key 1 and MAY include additional negative
+      integer keys, which can be used to encode supplementary
+      information.  Unsigned integer keys, including 4, 5, and the keys
+      in the $$ETIME-CRITICAL group choice, MUST NOT be used, unless the
+      emitter wants to ensure that only implementations that understand
+      the critical key interoperate.
+
+   Fixing key 1 for the base time and profiling key -8 provide a
+   consistent shape for the profiled etime maps consumed by Epoch
+   Markers without changing the meaning of the corresponding keys in
+   [RFC9581].  Key 1 is pinned so all profiled etime values share the
+   same base-time representation, and key -8 is specialized to carry the
+   accuracy bound expected by the TSA-style timestamps used here.  The
+   permissive * int => any entry remains to allow other members defined
+   by [RFC9581] and future extensions; implementations still rely on
+   [RFC9581] for the full semantics and validation of etime beyond the
+   constraints listed here.
 
    ordering:
       boolean indicating whether tst-info issued by the TSA can be
       ordered solely based on the "base time".  This is an optional
       field, whose default value is "false".  Cf. ordering,
       Section 2.4.2 of [RFC3161].
+
+
+
+Birkholz, et al.        Expires 18 September 2026              [Page 10]
+
+Internet-Draft                Epoch Markers                   March 2026
+
 
    nonce:
       int value echoing the nonce supplied by the requestor.  Cf. nonce,
@@ -553,14 +581,6 @@ Internet-Draft                Epoch Markers                   March 2026
 
    The Epoch Bell MUST use the following value as messageImprint in its
    request to the TSA:
-
-
-
-
-Birkholz, et al.        Expires 18 September 2026              [Page 10]
-
-Internet-Draft                Epoch Markers                   March 2026
-
 
    [
        / hashAlg   / -16, / sha-256 /
@@ -588,6 +608,16 @@ Internet-Draft                Epoch Markers                   March 2026
       Epoch Markers can be used in multiple interactions by every
       consumer involved.
 
+
+
+
+
+
+Birkholz, et al.        Expires 18 September 2026              [Page 11]
+
+Internet-Draft                Epoch Markers                   March 2026
+
+
 4.1.4.1.  Creation
 
    The emitter MUST follow the requirements in Section 4.3.
@@ -608,16 +638,6 @@ Internet-Draft                Epoch Markers                   March 2026
    The following describes the Epoch Tick List type.
 
    epoch-tick-list:  A sequence of byte strings used by RATS roles in
-
-
-
-
-
-Birkholz, et al.        Expires 18 September 2026              [Page 11]
-
-Internet-Draft                Epoch Markers                   March 2026
-
-
       trust domain as extra data (handle) in the generation of
       conceptual messages as specified by the RATS architecture
       [RFC9334] to associate them with a certain epoch.  Each Epoch Tick
@@ -646,6 +666,14 @@ Internet-Draft                Epoch Markers                   March 2026
 
    strictly-monotonic-counter = uint
 
+
+
+
+Birkholz, et al.        Expires 18 September 2026              [Page 12]
+
+Internet-Draft                Epoch Markers                   March 2026
+
+
    The following describes the strictly-monotonic-counter type.
 
    strictly-monotonic-counter:  An unsigned integer used by RATS roles
@@ -665,14 +693,6 @@ Internet-Draft                Epoch Markers                   March 2026
 
    Time MUST be sourced from a trusted clock (see Section 10.1 of
    [RFC9334]).
-
-
-
-
-Birkholz, et al.        Expires 18 September 2026              [Page 12]
-
-Internet-Draft                Epoch Markers                   March 2026
-
 
 4.3.  Nonce Requirements
 
@@ -701,6 +721,15 @@ Internet-Draft                Epoch Markers                   March 2026
    SHOULD document whether they use global epoch tracking or per-
    Attester state and, if necessary, the associated window.
 
+
+
+
+
+Birkholz, et al.        Expires 18 September 2026              [Page 13]
+
+Internet-Draft                Epoch Markers                   March 2026
+
+
 5.  Signature Requirements
 
    The signature over an Epoch Marker MUST be generated by the Epoch
@@ -722,13 +751,6 @@ Internet-Draft                Epoch Markers                   March 2026
    anchor).  Similarly, the Bell's clock needs to be securely sourced
    and managed, to prevent attacks that skew the Bell's perception of
    time.
-
-
-
-Birkholz, et al.        Expires 18 September 2026              [Page 13]
-
-Internet-Draft                Epoch Markers                   March 2026
-
 
 6.1.  Epoch Signalling Issues
 
@@ -755,6 +777,15 @@ Internet-Draft                Epoch Markers                   March 2026
    The following illustrative cases highlight “reasonable best practice”
    choices for balancing freshness, replay protection, and scalability.
 
+
+
+
+
+Birkholz, et al.        Expires 18 September 2026              [Page 14]
+
+Internet-Draft                Epoch Markers                   March 2026
+
+
    *  _Nonce-bound Bell interaction_: When a Verifier uses a nonce
       challenge to trigger Evidence creation, the Attester can forward
       that nonce to the Epoch Bell to request an Epoch Marker with the
@@ -769,22 +800,6 @@ Internet-Draft                Epoch Markers                   March 2026
       satisfies the acceptance policy (e.g., highest-seen counter or
       time window).  This pairing gives per-session uniqueness while
       still allowing Epoch Marker reuse by multiple consumers.
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires 18 September 2026              [Page 14]
-
-Internet-Draft                Epoch Markers                   March 2026
-
 
    *  _Long-latency paths (e.g., LoRaWAN or DTN profiles)_: High
       propagation and queuing delays make tight epoch windows brittle.
@@ -818,21 +833,6 @@ Internet-Draft                Epoch Markers                   March 2026
    IANA is requested to allocate the following tags in the "CBOR Tags"
    registry [IANA.cbor-tags], preferably with the specific CBOR tag
    value requested:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
