@@ -204,13 +204,13 @@ The following Epoch Marker types are defined in this document:
 ~~~~ cddl
 {::include cddl/epoch-marker.cddl}
 ~~~~
-{: #fig-epoch-marker-cddl artwork-align="left"
+{: #fig-epoch-marker-cddl
    title="Epoch Marker types (tag numbers 2698x are suggested, not yet allocated)"}
 
 ~~~~ cddl
 {::include cddl/epoch-marker-claim.cddl}
 ~~~~
-{: #fig-epoch-marker-cwt artwork-align="left"
+{: #fig-epoch-marker-cwt
    title="Epoch Marker as a CWT Claim (CWT claim number 2000 is suggested, not yet allocated)"}
 
 ## Epoch Marker Types {#epoch-payloads}
@@ -574,7 +574,7 @@ The example in {{fig-ex-1}} shows an Epoch Marker with an `etime` as the Epoch M
 ~~~~ cbor-diag
 {::include cddl/examples/1.diag}
 ~~~~
-{: #fig-ex-1 artwork-align="center"
+{: #fig-ex-1
    title="CBOR Epoch Marker based on `etime` (EDN)"}
 
 The encoded data item in CBOR pretty-printed form (hex with comments) is shown in {{fig-ex-1-pretty}}.
@@ -582,7 +582,7 @@ The encoded data item in CBOR pretty-printed form (hex with comments) is shown i
 ~~~~ cbor-pretty
 {::include cddl/examples/1.pretty}
 ~~~~
-{: #fig-ex-1-pretty artwork-align="center"
+{: #fig-ex-1-pretty
    title="CBOR Epoch Marker based on `etime` (pretty hex)"}
 
 The example in {{fig-ex-2}} shows an Epoch Marker with an `etime` as the Epoch Marker type carried within a CWT.
@@ -590,7 +590,7 @@ The example in {{fig-ex-2}} shows an Epoch Marker with an `etime` as the Epoch M
 ~~~~ cbor-diag
 {::include-fold cddl/examples/1-cwt.diag}
 ~~~~
-{: #fig-ex-2 artwork-align="center"
+{: #fig-ex-2
    title="CBOR Epoch Marker based on `etime` carried within a CWT (EDN)"}
 
 The encoded data item in CBOR pretty-printed form (hex with comments) is shown in {{fig-ex-2-pretty}}.
@@ -598,7 +598,7 @@ The encoded data item in CBOR pretty-printed form (hex with comments) is shown i
 ~~~~ cbor-pretty
 {::include-fold cddl/examples/1-cwt.pretty}
 ~~~~
-{: #fig-ex-2-pretty artwork-align="center"
+{: #fig-ex-2-pretty
    title="CBOR Epoch Marker based on `etime` carried within a CWT (pretty hex)"}
 
 ## RFC 3161 TSTInfo {#classic-tstinfo}
