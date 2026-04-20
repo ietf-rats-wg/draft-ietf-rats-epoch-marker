@@ -7,6 +7,7 @@ EPOCH_MARKER_FRAGS += multi-nonce-list.cddl
 EPOCH_MARKER_FRAGS += multi-nonce.cddl
 EPOCH_MARKER_FRAGS += strictly-monotonic-counter.cddl
 EPOCH_MARKER_FRAGS += tst-info.cddl
+EPOCH_MARKER_FRAGS += stateless-nonce.cddl
 EPOCH_MARKER_FRAGS += non-empty.cddl
 
 EPOCH_MARKER_EXAMPLES := examples/1.diag
@@ -20,6 +21,7 @@ CWT_EM_FRAGS += multi-nonce-list.cddl
 CWT_EM_FRAGS += multi-nonce.cddl
 CWT_EM_FRAGS += strictly-monotonic-counter.cddl
 CWT_EM_FRAGS += tst-info.cddl
+CWT_EM_FRAGS += stateless-nonce.cddl
 CWT_EM_FRAGS += non-empty.cddl
 
 CWT_EM_EXAMPLES := examples/1-cwt.diag
