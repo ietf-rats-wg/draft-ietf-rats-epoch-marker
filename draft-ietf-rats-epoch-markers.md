@@ -429,7 +429,7 @@ In a highly available service (e.g., a cloud attestation Verifier), maintaining 
 One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on coarse-grained clock ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".
 
-A `stateless-nonce` supports the above use case by encoding a Posix time (i.e., the epoch identifier) alongside a minimal set of metadata.
+A `stateless-nonce` supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
 This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
 
 ~~~~ cddl
