@@ -700,7 +700,7 @@ Internet-Draft                Epoch Markers                   April 2026
    minted by one server can be processed by any other server, avoiding
    the need for session "stickiness".
 
-   A stateless-nonce supports the above use case by encoding a Posix
+   A stateless-nonce supports the above use case by encoding a POSIX
    time (i.e., the epoch identifier) alongside a minimal set of
    metadata.  This is all authenticated with a symmetric key in a self-
    contained and compact token that fits within 64 bytes.
