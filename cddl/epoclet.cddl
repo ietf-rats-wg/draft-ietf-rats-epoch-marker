@@ -1,4 +1,4 @@
-stateless-nonce = [
+epoclet = [
   TimeToken
   AuthTag: bytes .size 32
 ]

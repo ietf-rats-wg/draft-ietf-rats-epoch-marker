@@ -423,21 +423,21 @@ strictly-monotonic-counter:
 Systems that use Epoch Markers SHOULD follow the guidance in {{sec-state-seq-mgmt}} in establishing an Epoch Marker acceptance policy for receivers.
 To prove freshness, receivers SHOULD track the highest accepted counter and ensure it fulfills the acceptance policy.
 
-### Stateless Nonce {#sec-stateless-nonce}
+### Epoclet {#sec-epoclet}
 
 In a highly available service (e.g., a cloud attestation Verifier), maintaining per-session nonce state can cause scalability issues.
 One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on coarse-grained clock ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".
 
-A `stateless-nonce` is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
+An `epoclet` is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
 This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
-This makes it easy to use with common evidence APIs, which tend to limit the size of the challenge parameter to 64 bytes.
+This makes it easy to use with common Evidence retrieval ABIs, which tend to limit the size of the challenge parameter to 64 bytes.
 
 ~~~~ cddl
-{::include cddl/stateless-nonce.cddl}
+{::include cddl/epoclet.cddl}
 ~~~~
 
-The following describes the `stateless-nonce` type.
+The following describes the `epoclet` type.
 
 {: vspace="0"}
 KeyID:
@@ -462,7 +462,7 @@ The serialization MUST use the CBOR deterministic encoding as specified in {{Sec
 
 #### Usage
 
-The same size limit defined in {{sec-nonce-reqs}} applies: an encoded `stateless-nonce` MUST be no more than 64 bytes in length.
+The same size limit defined in {{sec-nonce-reqs}} applies: an encoded `epoclet` MUST be no more than 64 bytes in length.
 
 The requirements in {{sec-time-reqs}} apply.
 Furthermore, when used in a server farm, the clocks of the servers that participate in the protocol MUST be synchronized.
@@ -551,6 +551,7 @@ IANA is requested to allocate the following tags in the "CBOR Tags" registry
 | 26982 | tstr / bstr / int | a nonce that is shared among many participants but that can only be used once by each participant | {{sec-epoch-tick}} of {{&SELF}} |
 | 26983 | array | a list of multi-nonce | {{sec-epoch-tick-list}} of {{&SELF}} |
 | 26984 | uint | strictly monotonically increasing counter | {{sec-strictly-monotonic}} of {{&SELF}} |
+| 26985 | array | an "epoclet" | {{sec-epoclet}} of {{&SELF}} |
 {: #tbl-cbor-tags align="left" title="New CBOR Tags"}
 
 ## New EM CWT Claim {#sec-iana-em-claim}
