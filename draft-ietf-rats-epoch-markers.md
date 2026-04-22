@@ -457,7 +457,7 @@ This field is used to adjust the overall size of the nonce, ranging from a minim
 The padding bytes can assume any value.
 
 AuthTag:
-: 32 bytes string which is the result of applying HMAC {{!RFC2104}} w/ SHA-256 over the CBOR serialization of the TimeToken array.
+: 32 bytes string which is the result of applying HMAC {{!RFC2104}} with SHA-256 over the CBOR serialization of the TimeToken array.
 The serialization MUST use the CBOR deterministic encoding as specified in {{Section 4.2 of RFC8949@-CBOR}}.
 
 #### Usage
