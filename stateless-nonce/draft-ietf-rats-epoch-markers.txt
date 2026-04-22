@@ -748,9 +748,9 @@ Internet-Draft                Epoch Markers                   April 2026
       padding).  The padding bytes can assume any value.
 
    AuthTag:
-      32 bytes string which is the result of applying HMAC [RFC2104] w/
-      SHA-256 over the CBOR serialization of the TimeToken array.  The
-      serialization MUST use the CBOR deterministic encoding as
+      32 bytes string which is the result of applying HMAC [RFC2104]
+      with SHA-256 over the CBOR serialization of the TimeToken array.
+      The serialization MUST use the CBOR deterministic encoding as
       specified in Section 4.2 of RFC 8949 [STD94].
 
 4.1.7.1.  Usage
