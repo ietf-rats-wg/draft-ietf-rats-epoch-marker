@@ -221,7 +221,7 @@ This section specifies the Epoch Marker types listed in {{fig-epoch-marker-cddl}
 
 ### CBOR Time Tags
 
-CBOR Time Tags are CBOR time representations choosing from CBOR tag 0 (`tdate`, RFC3339 time as a string), tag 1 (`time`, Posix time as int or float), or tag 1001 (extended time data item).
+CBOR Time Tags are CBOR time representations choosing from CBOR tag 0 (`tdate`, RFC3339 time as a string), tag 1 (`time`, POSIX time as int or float), or tag 1001 (extended time data item).
 
 ~~~~ cddl
 {::include cddl/cbor-time-tag.cddl}
@@ -309,7 +309,7 @@ A separate tag is unnecessary because the profiled form remains an `etime` item 
 RFC 9581 defines tag 1001 and its semantics; this document constrains one valid `etime` shape for Epoch Markers but does not introduce a new CBOR tag or alter the definition of `etime`.
 The resulting `profiled-etime` remains a subset/profile of `etime` encoded with tag 1001 and is defined as follows:
 
-- The "base time" is encoded using key 1, indicating Posix time as int or float, to align the profile with the baseline representation defined in {{-CBOR-ETIME}}.
+- The "base time" is encoded using key 1, indicating POSIX time as int or float, to align the profile with the baseline representation defined in {{-CBOR-ETIME}}.
 - The stated "accuracy" is encoded using key -8, which indicates the maximum
   allowed deviation from the value indicated by "base time". The duration map
   is profiled to disallow string keys. This is an optional field specialized to the needs of this profile.
@@ -429,7 +429,7 @@ In a highly available service (e.g., a cloud attestation Verifier), maintaining 
 One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on coarse-grained clock ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".
 
-A `stateless-nonce` is an Epoch ID variant that supports the above use case by encoding a Posix time (i.e., the epoch identifier) alongside a minimal set of metadata.
+A `stateless-nonce` is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
 This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
 This makes it easy to use with common evidence APIs, which tend to limit the size of the challenge parameter to 64 bytes.
 
@@ -446,7 +446,7 @@ It is used to identify the key used to compute the AuthTag.
 Its interpretation is deployment-specific.
 
 Timestamp:
-: The time associated with the current epoch encoded as the CBOR tag for Posix time.
+: The time associated with the current epoch encoded as the CBOR tag for POSIX time.
 It MUST use the int format.
 The CBOR tag MUST be removed.
 Note that this encoding restricts the granularity of this Epoch ID to one second.
