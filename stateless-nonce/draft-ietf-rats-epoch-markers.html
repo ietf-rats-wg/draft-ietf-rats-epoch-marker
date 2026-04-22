@@ -1214,7 +1214,7 @@ It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, 
                     <p id="section-toc.1-1.4.2.1.2.6.1"><a href="#section-4.1.6" class="auto internal xref">4.1.6</a>.  <a href="#name-strictly-monotonically-incr" class="internal xref">Strictly Monotonically Increasing Counter</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.7">
-                    <p id="section-toc.1-1.4.2.1.2.7.1"><a href="#section-4.1.7" class="auto internal xref">4.1.7</a>.  <a href="#name-stateless-nonce" class="internal xref">Stateless Nonce</a></p>
+                    <p id="section-toc.1-1.4.2.1.2.7.1"><a href="#section-4.1.7" class="auto internal xref">4.1.7</a>.  <a href="#name-epoclet" class="internal xref">Epoclet</a></p>
 </li>
                 </ul>
 </li>
@@ -1427,7 +1427,7 @@ $tagged-epoch-id /= #6.26981(TST-info-based-on-CBOR-time-tag)
 $tagged-epoch-id /= #6.26982(epoch-tick)
 $tagged-epoch-id /= #6.26983(epoch-tick-list)
 $tagged-epoch-id /= #6.26984(strictly-monotonic-counter)
-$tagged-epoch-id /= #6.26985(stateless-nonce)
+$tagged-epoch-id /= #6.26985(epoclet)
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -1773,20 +1773,20 @@ To prove freshness, receivers <span class="bcp14">SHOULD</span> track the highes
 </div>
 </section>
 </div>
-<div id="sec-stateless-nonce">
+<div id="sec-epoclet">
 <section id="section-4.1.7">
-          <h4 id="name-stateless-nonce">
-<a href="#section-4.1.7" class="section-number selfRef">4.1.7. </a><a href="#name-stateless-nonce" class="section-name selfRef">Stateless Nonce</a>
+          <h4 id="name-epoclet">
+<a href="#section-4.1.7" class="section-number selfRef">4.1.7. </a><a href="#name-epoclet" class="section-name selfRef">Epoclet</a>
           </h4>
 <p id="section-4.1.7-1">In a highly available service (e.g., a cloud attestation Verifier), maintaining per-session nonce state can cause scalability issues.
 One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on coarse-grained clock ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".<a href="#section-4.1.7-1" class="pilcrow">¶</a></p>
-<p id="section-4.1.7-2">A <code>stateless-nonce</code> is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
+<p id="section-4.1.7-2">An <code>epoclet</code> is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
 This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
-This makes it easy to use with common evidence APIs, which tend to limit the size of the challenge parameter to 64 bytes.<a href="#section-4.1.7-2" class="pilcrow">¶</a></p>
+This makes it easy to use with common Evidence retrieval ABIs, which tend to limit the size of the challenge parameter to 64 bytes.<a href="#section-4.1.7-2" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-4.1.7-3">
 <pre>
-stateless-nonce = [
+epoclet = [
   TimeToken
   AuthTag: bytes .size 32
 ]
@@ -1800,7 +1800,7 @@ TimeToken = [
 posix-time = #6.1(int)
 </pre><a href="#section-4.1.7-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1.7-4">The following describes the <code>stateless-nonce</code> type.<a href="#section-4.1.7-4" class="pilcrow">¶</a></p>
+<p id="section-4.1.7-4">The following describes the <code>epoclet</code> type.<a href="#section-4.1.7-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlNewline" id="section-4.1.7-5">
             <dt id="section-4.1.7-5.1">KeyID:</dt>
             <dd style="margin-left: 1.5em" id="section-4.1.7-5.2">
@@ -1836,7 +1836,7 @@ The serialization <span class="bcp14">MUST</span> use the CBOR deterministic enc
             <h5 id="name-usage-3">
 <a href="#section-4.1.7.1" class="section-number selfRef">4.1.7.1. </a><a href="#name-usage-3" class="section-name selfRef">Usage</a>
             </h5>
-<p id="section-4.1.7.1-1">The same size limit defined in <a href="#sec-nonce-reqs" class="auto internal xref">Section 4.3</a> applies: an encoded <code>stateless-nonce</code> <span class="bcp14">MUST</span> be no more than 64 bytes in length.<a href="#section-4.1.7.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1.7.1-1">The same size limit defined in <a href="#sec-nonce-reqs" class="auto internal xref">Section 4.3</a> applies: an encoded <code>epoclet</code> <span class="bcp14">MUST</span> be no more than 64 bytes in length.<a href="#section-4.1.7.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1.7.1-2">The requirements in <a href="#sec-time-reqs" class="auto internal xref">Section 4.2</a> apply.
 Furthermore, when used in a server farm, the clocks of the servers that participate in the protocol <span class="bcp14">MUST</span> be synchronized.<a href="#section-4.1.7.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.1.7.1-3">It is <span class="bcp14">RECOMMENDED</span> that the handling (i.e., storage, replication and rotation) of the symmetric key used to generate the authentication tag follows the recommendations and best practices described in <span>[<a href="#NIST-SP-800-pt2" class="cite xref">NIST-SP-800-pt2</a>]</span>.<a href="#section-4.1.7.1-3" class="pilcrow">¶</a></p>
@@ -2004,6 +2004,13 @@ number of this RFC and remove this note.</span><a href="#section-7-1" class="pil
               <td class="text-left" rowspan="1" colspan="1">strictly monotonically increasing counter</td>
               <td class="text-left" rowspan="1" colspan="1">
                 <a href="#sec-strictly-monotonic" class="auto internal xref">Section 4.1.6</a> of RFCthis</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">26985</td>
+              <td class="text-left" rowspan="1" colspan="1">array</td>
+              <td class="text-left" rowspan="1" colspan="1">an "epoclet"</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#sec-epoclet" class="auto internal xref">Section 4.1.7</a> of RFCthis</td>
             </tr>
           </tbody>
         </table>
