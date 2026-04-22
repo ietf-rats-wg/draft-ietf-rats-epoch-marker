@@ -429,8 +429,9 @@ In a highly available service (e.g., a cloud attestation Verifier), maintaining 
 One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on coarse-grained clock ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".
 
-A `stateless-nonce` supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
+A `stateless-nonce` is an Epoch ID variant that supports the above use case by encoding a Posix time (i.e., the epoch identifier) alongside a minimal set of metadata.
 This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
+This makes it easy to use with common evidence APIs, which tend to limit the size of the challenge parameter to 64 bytes.
 
 ~~~~ cddl
 {::include cddl/stateless-nonce.cddl}
@@ -439,24 +440,25 @@ This is all authenticated with a symmetric key in a self-contained and compact t
 The following describes the `stateless-nonce` type.
 
 {: vspace="0"}
-Version:
-: The version of the TimeToken.
-This is encoded as a single byte.
-The value MUST be 0x01.
-
 KeyID:
-: An opaque identifier that is shared across the server pool and is used to identify the signing key that computes the AuthTag.
-It is semantically equivalent to the TID field defined in {{Section 3.1.3 of ?RFC6896}}.
+: A one-byte opaque identifier that is shared across the server pool.
+It is used to identify the key used to compute the AuthTag.
+Its interpretation is deployment-specific.
 
 Timestamp:
 : The time associated with the current epoch encoded as the CBOR tag for Posix time.
 It MUST use the int format.
+The CBOR tag MUST be removed.
+Note that this encoding restricts the granularity of this Epoch ID to one second.
 
 Pad:
-: Zero or more pad bytes, used to make the stateless nonce the desired size (but not more than 64 bytes).
+: Zero or more (up to 20) bytes of padding.
+This field is used to adjust the overall size of the nonce, ranging from a minimum of 44 bytes (0 bytes of padding) to a maximum of 64 bytes (20 bytes of padding).
+The padding bytes can assume any value.
 
 AuthTag:
-: HMAC {{!RFC2104}} w/ SHA-256 computed over the CBOR serialisation of TimeToken encoded as a 32-bytes string.
+: 32 bytes string which is the result of applying HMAC {{!RFC2104}} w/ SHA-256 over the CBOR serialization of the TimeToken array.
+The serialization MUST use the CBOR deterministic encoding as specified in {{Section 4.2 of RFC8949@-CBOR}}.
 
 #### Usage
 
@@ -465,7 +467,7 @@ The same size limit defined in {{sec-nonce-reqs}} applies: an encoded `stateless
 The requirements in {{sec-time-reqs}} apply.
 Furthermore, when used in a server farm, the clocks of the servers that participate in the protocol MUST be synchronized.
 
-It is RECOMMENDED that the handling (i.e., storage, replication and rotation) of the symmetric key used to generate the authentication tag follows recommendations in {{NIST-SP-800-pt2}}.
+It is RECOMMENDED that the handling (i.e., storage, replication and rotation) of the symmetric key used to generate the authentication tag follows the recommendations and best practices described in {{NIST-SP-800-pt2}}.
 
 ## Time Requirements {#sec-time-reqs}
 

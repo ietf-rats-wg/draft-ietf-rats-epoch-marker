@@ -1,13 +1,12 @@
 stateless-nonce = [
   TimeToken
-  AuthTag: bstr .size 32
+  AuthTag: bytes .size 32
 ]
 
-TimeToken = (
-  Version: bytes .size 1
+TimeToken = [
   KeyID: bytes .size 1
-  Timestamp: posix-time
-  Pad: bytes
-)
+  Timestamp: ~posix-time
+  Pad: bytes .size (0..20)
+]
 
 posix-time = #6.1(int)
