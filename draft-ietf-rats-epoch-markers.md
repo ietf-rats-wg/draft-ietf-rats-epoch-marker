@@ -426,7 +426,7 @@ To prove freshness, receivers SHOULD track the highest accepted counter and ensu
 ### Epoclet {#sec-epoclet}
 
 In a highly available service (e.g., a cloud attestation Verifier), maintaining per-session nonce state can cause scalability issues.
-One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on coarse-grained clock ticks signed using the shared secret.
+One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on epoch ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".
 
 An `epoclet` is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
