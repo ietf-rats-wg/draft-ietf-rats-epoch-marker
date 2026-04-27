@@ -1,0 +1,12 @@
+epoclet = [
+  TimeToken
+  AuthTag: bytes .size 32
+]
+
+TimeToken = [
+  KeyID: bytes .size 1
+  Timestamp: ~posix-time
+  Pad: bytes .size (0..20)
+]
+
+posix-time = #6.1(int)
