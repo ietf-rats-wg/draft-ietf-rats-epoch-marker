@@ -1058,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 24 October 2026</td>
+<td class="center">Expires 29 October 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-epoch-markers-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-22" class="published">22 April 2026</time>
+<time datetime="2026-04-27" class="published">27 April 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-24">24 October 2026</time></dd>
+<dd class="expires"><time datetime="2026-10-29">29 October 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1146,7 +1146,7 @@ It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1779,7 +1779,7 @@ To prove freshness, receivers <span class="bcp14">SHOULD</span> track the highes
 <a href="#section-4.1.7" class="section-number selfRef">4.1.7. </a><a href="#name-epoclet" class="section-name selfRef">Epoclet</a>
           </h4>
 <p id="section-4.1.7-1">In a highly available service (e.g., a cloud attestation Verifier), maintaining per-session nonce state can cause scalability issues.
-One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on coarse-grained clock ticks signed using the shared secret.
+One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on epoch ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".<a href="#section-4.1.7-1" class="pilcrow">¶</a></p>
 <p id="section-4.1.7-2">An <code>epoclet</code> is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
 This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.

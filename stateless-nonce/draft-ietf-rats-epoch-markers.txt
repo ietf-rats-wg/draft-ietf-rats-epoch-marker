@@ -5,14 +5,14 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                              T. Fossati
-Expires: 24 October 2026                                          Linaro
+Expires: 29 October 2026                                          Linaro
                                                                   W. Pan
                                                      Huawei Technologies
                                                              I. Mihalcea
                                                                      Arm
                                                               C. Bormann
                                                   Universität Bremen TZI
-                                                           22 April 2026
+                                                           27 April 2026
 
 
                              Epoch Markers
@@ -53,7 +53,7 @@ About This Document
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 1]
+Birkholz, et al.         Expires 29 October 2026                [Page 1]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2026.
+   This Internet-Draft will expire on 29 October 2026.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 2]
+Birkholz, et al.         Expires 29 October 2026                [Page 2]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -165,7 +165,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 3]
+Birkholz, et al.         Expires 29 October 2026                [Page 3]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -221,7 +221,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 4]
+Birkholz, et al.         Expires 29 October 2026                [Page 4]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -277,7 +277,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 5]
+Birkholz, et al.         Expires 29 October 2026                [Page 5]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -333,7 +333,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 6]
+Birkholz, et al.         Expires 29 October 2026                [Page 6]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -389,7 +389,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 7]
+Birkholz, et al.         Expires 29 October 2026                [Page 7]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -445,7 +445,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 8]
+Birkholz, et al.         Expires 29 October 2026                [Page 8]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -501,7 +501,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026                [Page 9]
+Birkholz, et al.         Expires 29 October 2026                [Page 9]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -557,7 +557,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 10]
+Birkholz, et al.         Expires 29 October 2026               [Page 10]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -613,7 +613,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 11]
+Birkholz, et al.         Expires 29 October 2026               [Page 11]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -669,7 +669,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 12]
+Birkholz, et al.         Expires 29 October 2026               [Page 12]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -695,10 +695,10 @@ Internet-Draft                Epoch Markers                   April 2026
    In a highly available service (e.g., a cloud attestation Verifier),
    maintaining per-session nonce state can cause scalability issues.
    One alternative is to use time-synchronized servers that share a
-   symmetric key and produce and consume nonces based on coarse-grained
-   clock ticks signed using the shared secret.  This means that a nonce
-   minted by one server can be processed by any other server, avoiding
-   the need for session "stickiness".
+   symmetric key and produce and consume nonces based on epoch ticks
+   signed using the shared secret.  This means that a nonce minted by
+   one server can be processed by any other server, avoiding the need
+   for session "stickiness".
 
    An epoclet is an Epoch ID variant that supports the above use case by
    encoding a POSIX time (i.e., the epoch identifier) alongside a
@@ -725,7 +725,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 13]
+Birkholz, et al.         Expires 29 October 2026               [Page 13]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -781,7 +781,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 14]
+Birkholz, et al.         Expires 29 October 2026               [Page 14]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -837,7 +837,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 15]
+Birkholz, et al.         Expires 29 October 2026               [Page 15]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -893,7 +893,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 16]
+Birkholz, et al.         Expires 29 October 2026               [Page 16]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -949,7 +949,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 17]
+Birkholz, et al.         Expires 29 October 2026               [Page 17]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1005,7 +1005,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 18]
+Birkholz, et al.         Expires 29 October 2026               [Page 18]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1061,7 +1061,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 19]
+Birkholz, et al.         Expires 29 October 2026               [Page 19]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1117,7 +1117,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 20]
+Birkholz, et al.         Expires 29 October 2026               [Page 20]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1173,7 +1173,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 21]
+Birkholz, et al.         Expires 29 October 2026               [Page 21]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1229,7 +1229,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 22]
+Birkholz, et al.         Expires 29 October 2026               [Page 22]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1285,7 +1285,7 @@ Appendix A.  Examples
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 23]
+Birkholz, et al.         Expires 29 October 2026               [Page 23]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1341,7 +1341,7 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 24]
+Birkholz, et al.         Expires 29 October 2026               [Page 24]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1397,7 +1397,7 @@ A.1.  RFC 3161 TSTInfo
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 25]
+Birkholz, et al.         Expires 29 October 2026               [Page 25]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1453,7 +1453,7 @@ Authors' Addresses
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 26]
+Birkholz, et al.         Expires 29 October 2026               [Page 26]
 
 Internet-Draft                Epoch Markers                   April 2026
 
@@ -1509,4 +1509,4 @@ Internet-Draft                Epoch Markers                   April 2026
 
 
 
-Birkholz, et al.         Expires 24 October 2026               [Page 27]
+Birkholz, et al.         Expires 29 October 2026               [Page 27]
