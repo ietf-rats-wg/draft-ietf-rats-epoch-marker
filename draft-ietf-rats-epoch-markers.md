@@ -453,7 +453,7 @@ Note that this encoding restricts the granularity of this Epoch ID to one second
 
 Pad:
 : Zero or more (up to 20) bytes of padding.
-This field is used to adjust the overall size of the nonce, ranging from a minimum of 44 bytes (0 bytes of padding) to a maximum of 64 bytes (20 bytes of padding).
+This field is used to adjust the overall size of the epoclet, ranging from a minimum of 44 bytes (0 bytes of padding) to a maximum of 64 bytes (20 bytes of padding).
 The padding bytes can assume any value.
 
 AuthTag:
