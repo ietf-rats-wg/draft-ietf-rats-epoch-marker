@@ -187,6 +187,12 @@ For example, an Epoch Marker can be used as a nonce in challenge-response remote
 If embedded in a CWT, an Epoch Marker can be used as a `handle` by extracting the value of the `em` Claim or by using the complete CWT including an `em` Claim (e.g., functioning as a signed time-stamp token).
 Using an Epoch Marker requires the challenger to acquire an Epoch Marker beforehand, which may introduce a sensible overhead compared to using a simple nonce.
 
+When an Epoch Marker is used as the `handle` in the Passport or Background-Check challenge-response flows defined by {{-rats-models}}, the Verifier MUST follow the relevant Epoch Marker validation and acceptance policy.
+That policy MUST fulfil the applicable requirements presented in this document, such as accepted epoch windows, replay or rollback detection state, and deployment-specific skew introduced by the Evidence path.
+
+For Background-Check, the policy MUST account for the additional path through the Relying Party before Evidence reaches the Verifier.
+For Passport, any Attestation Result derived from such Evidence MUST remain bound to the Epoch Marker, or to the `handle` containing it, so that subsequent freshness decisions can be made according to Relying Party policy.
+
 # Epoch Marker Structure {#sec-epoch-markers}
 
 This section specifies the structure of Epoch Marker types using CDDL {{-CDDL}} and illustrates their usage and relationship with other IETF work (e.g, {{-TSA}}) where applicable.
