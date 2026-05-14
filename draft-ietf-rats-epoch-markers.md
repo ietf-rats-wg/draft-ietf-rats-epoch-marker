@@ -199,6 +199,8 @@ This section specifies the structure of Epoch Marker types using CDDL {{-CDDL}} 
 In general, Epoch Markers are intended to be conveyed securely, e.g., by being included in a signed data structure, such as a CBOR Web Token (CWT), or by being sent via a secure channel.
 The specification of such "outer" structures and protocols and the means how to secure them is beyond the scope of this document.
 This document defines the different types of Epoch Markers in {{sec-iana-cbor-tags}}.
+When an Epoch Marker is conveyed as `application/epoch-marker+cbor`, the optional `em-type` media type parameter can carry the CBOR tag number of the Epoch Marker type as a decimal unsigned integer.
+If the parameter is present, its value MUST match the CBOR tag of the encoded Epoch Marker.
 For example, an Epoch Marker can be used to construct a CBOR-based trusted time stamp token, similar in function to a {{-TSA}} TimeStampToken, using CWT and the `em` Claim defined in this document (see {{fig-ex-2}} for an illustration).
 The value(s) that an Epoch Marker represents are intended to demonstrate freshness of messages and protocols, but they can also serve other purposes in cases where trusted timestamps or time intervals are required.
 Taken as an opaque value, it is possible to use Epoch Markers as values for a nonce field in existing data structures or protocols that already support extra data fields, such as `extraData` in TPMS_ATTEST {{TCG-TPM2}}.
@@ -571,7 +573,7 @@ This specification adds the following value to the "CBOR Web Token Claims" regis
 * Change Controller: IETF
 * Specification Document(s): {{sec-epoch-markers}} of {{&SELF}}
 
-## New Media Type `application/em+cbor`
+## New Media Type `application/epoch-marker+cbor`
 
 IANA is requested to add the `application/epoch-marker+cbor` media types to the "Media Types" registry {{!IANA.media-types}}, using the following template:
 
@@ -586,7 +588,10 @@ Required parameters:
 : no
 
 Optional parameters:
-: no
+: `em-type`: a CBOR tag number identifying the Epoch Marker type carried in the payload.
+The value is encoded as a decimal unsigned integer, without tag-to-string translation.
+If present, it MUST match the CBOR tag of the encoded Epoch Marker.
+For example, `em-type=26982` identifies an Epoch Tick.
 
 Encoding considerations:
 : binary (CBOR)
