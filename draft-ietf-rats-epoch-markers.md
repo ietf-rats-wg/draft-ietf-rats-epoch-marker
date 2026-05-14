@@ -588,9 +588,8 @@ Required parameters:
 : no
 
 Optional parameters:
-: `em-type`: a CBOR tag number identifying the Epoch Marker type carried in the payload.
-The value is encoded as a decimal unsigned integer, without tag-to-string translation.
-If present, it MUST match the CBOR tag of the encoded Epoch Marker.
+: `em-type`: the CBOR tag number that identifies the specific Epoch Marker.
+This value is encoded as an unsigned decimal integer.
 For example, `em-type=26982` identifies an Epoch Tick.
 
 Encoding considerations:
