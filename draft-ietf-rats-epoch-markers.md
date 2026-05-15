@@ -225,7 +225,7 @@ The following Epoch Marker types are defined in this document:
 
 This section specifies the Epoch Marker types listed in {{fig-epoch-marker-cddl}}.
 
-### CBOR Time Tags
+### CBOR Time Tags {#sec-cbor-time}
 
 CBOR Time Tags are CBOR time representations choosing from CBOR tag 0 (`tdate`, RFC3339 time as a string), tag 1 (`time`, POSIX time as int or float), or tag 1001 (extended time data item).
 
@@ -621,15 +621,24 @@ Author/Change controller:
 Provisional registration:
 : no
 
-## New CoAP Content-Format
+## New CoAP Content-Formats
 
-IANA is requested to register the following Content-Format ID in the "CoAP Content-Formats" registry, within the "Constrained RESTful Environments (CoRE) Parameters" registry group {{!IANA.core-parameters}}:
+IANA is requested to register the following Content-Format IDs in the "CoAP Content-Formats" registry, within the "Constrained RESTful Environments (CoRE) Parameters" registry group {{!IANA.core-parameters}}:
 
 | Content-Type | Content Coding | ID | Reference |
 | application/epoch-marker+cbor | - | TBD1 | {{&SELF}} |
-{: align="left" title="New CoAP Content Format"}
+| application/epoch-marker+cbor; em-type=0 | - | TBD2 | {{sec-cbor-time}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=1 | - | TBD3 | {{sec-cbor-time}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=1001 | - | TBD4 | {{sec-cbor-time}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=26980 | - | TBD5 | {{sec-rfc3161-classic}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=26981 | - | TBD6 | {{sec-rfc3161-fancy}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=26982 | - | TBD7 | {{sec-epoch-tick}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=26983 | - | TBD8 | {{sec-epoch-tick-list}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=26984 | - | TBD9 | {{sec-strictly-monotonic}} of {{&SELF}} |
+| application/epoch-marker+cbor; em-type=26985 | - | TBD10 | {{sec-epoclet}} of {{&SELF}} |
+{: align="left" title="New CoAP Content Formats"}
 
-If possible, TBD1 should be assigned in the 256..9999 range.
+If possible, TBD1..TBD10 should be assigned in the 256..9999 range.
 
 --- back
 
