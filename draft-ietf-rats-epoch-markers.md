@@ -588,7 +588,7 @@ Required parameters:
 
 Optional parameters:
 : `em-type`: the CBOR tag number that identifies the specific Epoch Marker.
-This value is encoded as an unsigned decimal integer.
+This value is encoded as an unsigned decimal integer, without leading zeroes, except for the actual number 0.
 For example, `em-type=26982` identifies an Epoch Tick.
 
 Encoding considerations:
