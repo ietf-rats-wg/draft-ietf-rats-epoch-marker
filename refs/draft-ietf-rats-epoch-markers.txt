@@ -256,7 +256,8 @@ Internet-Draft                Epoch Markers               September 2026
 
    In this document, CDDL [RFC8610] is used to describe the data
    formats.  The examples in Appendix A use the Diagnostic Notation
-   described in Section 8 of RFC 8949 [STD94].
+   described in Section 8 of RFC 8949 [STD94] and Appendix G of
+   [RFC8610].
 
 2.  Epoch IDs
 
@@ -268,7 +269,6 @@ Internet-Draft                Epoch Markers               September 2026
    Epoch IDs defined in the RATS architecture, and provides several
    means to identify a new freshness epoch.  Some of these methods are
    introduced and discussed in Section 10.3 of [RFC9334].
-
 
 
 
