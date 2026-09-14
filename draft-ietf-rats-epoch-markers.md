@@ -159,7 +159,7 @@ This document makes use of the following terms from other documents:
 
 {::boilerplate bcp14-tagged}
 
-In this document, CDDL {{-CDDL}} is used to describe the data formats.  The examples in {{examples}} use the Diagnostic Notation described in {{Section 8 of RFC8949@-CBOR}}.
+In this document, CDDL {{-CDDL}} is used to describe the data formats.  The examples in {{examples}} use the Diagnostic Notation described in {{Section 8 of RFC8949@-CBOR}} and {{Appendix G of -CDDL}}.
 
 # Epoch IDs {#epoch-id}
 
