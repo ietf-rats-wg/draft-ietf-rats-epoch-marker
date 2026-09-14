@@ -5,14 +5,14 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                              T. Fossati
-Expires: 11 March 2027                                            NVIDIA
+Expires: 18 March 2027                                            NVIDIA
                                                                   W. Pan
                                                      Huawei Technologies
                                                              I. Mihalcea
                                                                      Arm
                                                               C. Bormann
                                                   Universität Bremen TZI
-                                                        7 September 2026
+                                                       14 September 2026
 
 
                              Epoch Markers
@@ -53,7 +53,7 @@ About This Document
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 1]
+Birkholz, et al.          Expires 18 March 2027                 [Page 1]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 March 2027.
+   This Internet-Draft will expire on 18 March 2027.
 
 Copyright Notice
 
@@ -102,32 +102,32 @@ Table of Contents
        4.1.3.  CBOR-encoded RFC3161 TST Info . . . . . . . . . . . .   9
        4.1.4.  Epoch Tick  . . . . . . . . . . . . . . . . . . . . .  12
        4.1.5.  Epoch Tick List . . . . . . . . . . . . . . . . . . .  13
-       4.1.6.  Strictly Monotonically Increasing Counter . . . . . .  13
+       4.1.6.  Strictly Monotonically Increasing Counter . . . . . .  14
        4.1.7.  Epoclet . . . . . . . . . . . . . . . . . . . . . . .  14
-     4.2.  Time Requirements . . . . . . . . . . . . . . . . . . . .  15
-     4.3.  Nonce Requirements  . . . . . . . . . . . . . . . . . . .  15
+     4.2.  Time Requirements . . . . . . . . . . . . . . . . . . . .  16
+     4.3.  Nonce Requirements  . . . . . . . . . . . . . . . . . . .  16
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 2]
+Birkholz, et al.          Expires 18 March 2027                 [Page 2]
 
 Internet-Draft                Epoch Markers               September 2026
 
 
      4.4.  State and Sequencing Management . . . . . . . . . . . . .  16
-   5.  Signature Requirements  . . . . . . . . . . . . . . . . . . .  16
-   6.  Epoch Bell Certification  . . . . . . . . . . . . . . . . . .  16
+   5.  Signature Requirements  . . . . . . . . . . . . . . . . . . .  17
+   6.  Epoch Bell Certification  . . . . . . . . . . . . . . . . . .  17
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
      7.1.  Epoch Bell Authorization  . . . . . . . . . . . . . . . .  18
-     7.2.  Epoch Signalling Issues . . . . . . . . . . . . . . . . .  18
+     7.2.  Epoch Signalling Issues . . . . . . . . . . . . . . . . .  19
      7.3.  Operational Examples  . . . . . . . . . . . . . . . . . .  19
    8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  20
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
-     9.1.  New CBOR Tags . . . . . . . . . . . . . . . . . . . . . .  20
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  21
+     9.1.  New CBOR Tags . . . . . . . . . . . . . . . . . . . . . .  21
      9.2.   New EM CWT Claim . . . . . . . . . . . . . . . . . . . .  21
      9.3.  New Media Type application/epoch-marker+cbor  . . . . . .  22
-     9.4.  New CoAP Content-Formats  . . . . . . . . . . . . . . . .  22
-     9.5.  New CMW Indicators  . . . . . . . . . . . . . . . . . . .  23
+     9.4.  New CoAP Content-Formats  . . . . . . . . . . . . . . . .  23
+     9.5.  New CMW Indicators  . . . . . . . . . . . . . . . . . . .  24
      9.6.  New SMI Numbers Registrations . . . . . . . . . . . . . .  24
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  24
@@ -165,7 +165,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 3]
+Birkholz, et al.          Expires 18 March 2027                 [Page 3]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -195,18 +195,18 @@ Internet-Draft                Epoch Markers               September 2026
 
    To inform the design, this document discusses a number of interaction
    models in which Epoch Markers are expected to be exchanged.  The
-   default top-level structure of Epoch Markers described in this
-   document is CBOR Web Tokens (CWT) [RFC8392].  The present document
-   specifies an extensible set of Epoch Marker types, along with the em
-   CWT claim to include them in CWTs.  CWTs are signed using COSE
-   [STD96] and benefit from wide tool support.  However, CWTs are not
-   the only containers in which Epoch Markers can be embedded.  Epoch
-   Markers can be included in any type of message that allows for the
-   embedding of opaque bytes or CBOR data items.  Examples include the
-   Collection CMW in [I-D.ietf-lamps-csr-attestation], Evidence formats
-   such as [TCG-CoEvidence] or [I-D.ietf-rats-eat], Attestation Results
-   formats such as [I-D.ietf-rats-ar4si], or the CWT Claims Header
-   Parameter of [I-D.ietf-scitt-architecture].
+   default container for Epoch Bell-signed Epoch Markers described in
+   this document is CBOR Web Tokens (CWT) [RFC8392].  The present
+   document specifies an extensible set of Epoch Marker types, along
+   with the em CWT claim to include them in CWTs.  CWTs are signed using
+   COSE [STD96] and benefit from wide tool support.  However, CWTs are
+   not the only containers in which Epoch Markers can be embedded.
+   Epoch Markers can be included in any type of message that allows for
+   the embedding of opaque bytes or CBOR data items.  Examples include
+   the Collection CMW in [I-D.ietf-lamps-csr-attestation], Evidence
+   formats such as [TCG-CoEvidence] or [I-D.ietf-rats-eat], Attestation
+   Results formats such as [I-D.ietf-rats-ar4si], or the CWT Claims
+   Header Parameter of [I-D.ietf-scitt-architecture].
 
    Section 9.5 registers new Conceptual Message Wrapper (CMW) Indicators
    [RFC9999] for Epoch ID and Nonce, so that they can be identified and
@@ -221,7 +221,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 4]
+Birkholz, et al.          Expires 18 March 2027                 [Page 4]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -277,7 +277,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 5]
+Birkholz, et al.          Expires 18 March 2027                 [Page 5]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -310,10 +310,10 @@ Internet-Draft                Epoch Markers               September 2026
    attestation (e.g., for limiting the number of ad-hoc requests by a
    Verifier).  If embedded in a CWT, an Epoch Marker can be used as a
    handle by extracting the value of the em Claim or by using the
-   complete CWT including an em Claim (e.g., functioning as a signed
-   time-stamp token).  Using an Epoch Marker requires the challenger to
-   acquire an Epoch Marker beforehand, which may introduce a sensible
-   overhead compared to using a simple nonce.
+   complete Epoch Bell-signed CWT including an em Claim (e.g.,
+   functioning as a signed time-stamp token).  Using an Epoch Marker
+   requires the challenger to acquire an Epoch Marker beforehand, which
+   may introduce a sensible overhead compared to using a simple nonce.
 
    When an Epoch Marker is used as the handle in the Passport or
    Background-Check challenge-response flows defined by
@@ -333,7 +333,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 6]
+Birkholz, et al.          Expires 18 March 2027                 [Page 6]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -356,27 +356,27 @@ Internet-Draft                Epoch Markers               September 2026
    stamp token, similar in function to a [RFC3161] TimeStampToken, using
    CWT and the em Claim defined in this document (see Figure 6 for an
    illustration).  The value(s) that an Epoch Marker represents are
-   intended to demonstrate freshness of messages and protocols, but they
-   can also serve other purposes in cases where trusted timestamps or
-   time intervals are required.  Taken as an opaque value, it is
-   possible to use Epoch Markers as values for a nonce field in existing
-   data structures or protocols that already support extra data fields,
-   such as extraData in TPMS_ATTEST [TCG-TPM2].  Similarities in the
-   usage of nonces and Epoch Markers can sometimes lead to applications
-   where both are used in the same interaction, albeit in different
-   places and for different purposes.  One example of such an
-   application scenario is the "nested" use of classical nonces and
-   Epoch Markers, whereby an Epoch Marker is requested to be used as a
-   nonce value for a specific data structure, while a locally generated
-   nonce is used to retrieve that Epoch Marker via an "outer" ad hoc
-   interaction (e.g., nonce retrieval protocols that interact with an
-   Epoch Bell to fetch an Epoch Marker to be used as a nonce).  As some
-   Epoch Marker types represent certain timestamp variants, these Epoch
-   Markers or the secure conveyance method they are used in do not
-   necessarily have a hard-coded message imprint, as is always the case
-   with [RFC3161] TimeStampTokens.  This means that not all Epoch Marker
-   types support binding a message to an Epoch Marker (unlike the
-   example in Figure 6.
+   intended to demonstrate freshness of messages and protocols.  Epoch
+   Bell-signed Epoch Markers can also serve other purposes in cases
+   where trusted timestamps or time intervals are required.  Taken as an
+   opaque value, it is possible to use Epoch Markers as values for a
+   nonce field in existing data structures or protocols that already
+   support extra data fields, such as extraData in TPMS_ATTEST
+   [TCG-TPM2].  Similarities in the usage of nonces and Epoch Markers
+   can sometimes lead to applications where both are used in the same
+   interaction, albeit in different places and for different purposes.
+   One example of such an application scenario is the "nested" use of
+   classical nonces and Epoch Markers, whereby an Epoch Marker is
+   requested to be used as a nonce value for a specific data structure,
+   while a locally generated nonce is used to retrieve that Epoch Marker
+   via an "outer" ad hoc interaction (e.g., nonce retrieval protocols
+   that interact with an Epoch Bell to fetch an Epoch Marker to be used
+   as a nonce).  As some Epoch Marker types represent certain timestamp
+   variants, these Epoch Markers or the secure conveyance method they
+   are used in do not necessarily have a hard-coded message imprint, as
+   is always the case with [RFC3161] TimeStampTokens.  This means that
+   not all Epoch Marker types support binding a message to an Epoch
+   Marker (unlike the example in Figure 6.
 
    The following Epoch Marker types are defined in this document:
 
@@ -389,7 +389,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 7]
+Birkholz, et al.          Expires 18 March 2027                 [Page 7]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -445,7 +445,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                 [Page 8]
+Birkholz, et al.          Expires 18 March 2027                 [Page 8]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -481,8 +481,9 @@ Internet-Draft                Epoch Markers               September 2026
 
    The TimeStampToken obtained from the TSA MUST be stripped of the TSA
    signature.  Only the TSTInfo is to be kept the rest MUST be
-   discarded.  The Epoch Bell COSE signature will replace the TSA
-   signature.
+   discarded.  A TSTInfo structure is conveyed in an Epoch Bell-signed
+   Epoch Marker.  The COSE signature supplies the protection formerly
+   supplied by the discarded TSA envelope.
 
 4.1.3.  CBOR-encoded RFC3161 TST Info
 
@@ -500,8 +501,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-
-Birkholz, et al.          Expires 11 March 2027                 [Page 9]
+Birkholz, et al.          Expires 18 March 2027                 [Page 9]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -557,7 +557,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                [Page 10]
+Birkholz, et al.          Expires 18 March 2027                [Page 10]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -613,7 +613,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                [Page 11]
+Birkholz, et al.          Expires 18 March 2027                [Page 11]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -669,7 +669,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                [Page 12]
+Birkholz, et al.          Expires 18 March 2027                [Page 12]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -704,6 +704,13 @@ Internet-Draft                Epoch Markers               September 2026
       if that Epoch Tick is the appropriate next unused Epoch Tick from
       the epoch-tick-list.
 
+   The Epoch Bell MUST provide the entire epoch-tick-list as an Epoch
+   Bell-signed Epoch Marker.  Once a receiver has verified and retained
+   that list, it can use each extracted Epoch Tick value independently,
+   with no attached Epoch Bell signature.  Epoch Tick List cannot be
+   used in cases where the issuer needs to be verified for each Epoch
+   Tick individually during use.
+
 4.1.5.1.  Creation
 
    The emitter MUST follow the requirements in Section 4.3.
@@ -715,6 +722,14 @@ Internet-Draft                Epoch Markers               September 2026
    missing/out-of-order ticks are handled and how resynchronization
    occurs, as per Section 4.4.
 
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 13]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
 4.1.6.  Strictly Monotonically Increasing Counter
 
    A strictly monotonically increasing counter.
@@ -722,13 +737,6 @@ Internet-Draft                Epoch Markers               September 2026
    The counter context is defined by the Epoch Bell.
 
    strictly-monotonic-counter = uint
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 13]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    The following describes the strictly-monotonic-counter type.
 
@@ -758,10 +766,25 @@ Internet-Draft                Epoch Markers               September 2026
 
    An epoclet is an Epoch ID variant that supports the above use case by
    encoding a POSIX time (i.e., the epoch identifier) alongside a
-   minimal set of metadata.  This is all authenticated with a symmetric
-   key in a self-contained and compact token that fits within 64 bytes.
-   This makes it easy to use with common Evidence retrieval ABIs, which
-   tend to limit the size of the challenge parameter to 64 bytes.
+   minimal set of metadata.  This is all data-origin-authenticated with
+   a symmetric key in a self-contained and compact token that fits
+   within 64 bytes.  This makes it easy to use with common Evidence
+   retrieval ABIs, which tend to limit the size of the challenge
+   parameter to 64 bytes.
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 14]
+
+Internet-Draft                Epoch Markers               September 2026
+
 
    epoclet = [
      TimeToken
@@ -777,14 +800,6 @@ Internet-Draft                Epoch Markers               September 2026
    posix-time = #6.1(int)
 
    The following describes the epoclet type.
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 14]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    KeyID:
       A one-byte opaque identifier that is shared across the server
@@ -818,6 +833,15 @@ Internet-Draft                Epoch Markers               September 2026
    server farm, the clocks of the servers that participate in the
    protocol MUST be synchronized.
 
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 15]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
    It is RECOMMENDED that the handling (i.e., storage, replication and
    rotation) of the symmetric key used to generate the authentication
    tag follows the recommendations and best practices described in
@@ -834,13 +858,6 @@ Internet-Draft                Epoch Markers               September 2026
    Marker MUST be freshly generated.  The generated value MUST have at
    least 64 bits of entropy (before encoding).  The generated value MUST
    be generated via a cryptographically secure random number generator.
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 15]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    A maximum nonce size of 512 bits is set to limit the memory
    requirements.  All receivers MUST be able to accommodate the maximum
@@ -872,31 +889,42 @@ Internet-Draft                Epoch Markers               September 2026
    SHOULD document whether they use global epoch tracking or per-
    Attester state and, if necessary, the associated window.
 
-5.  Signature Requirements
-
-   The signature over an Epoch Marker MUST be generated by the Epoch
-   Bell.  Conversely, applying the first signature to an Epoch Marker
-   always makes the issuer of a signed message containing an Epoch
-   Marker an Epoch Bell.
-
-6.  Epoch Bell Certification
-
-   Relying Parties that receive Epoch Markers directly or as part of
-   other RATS conceptual messages need a way to determine whether the
-   signing key that produced an Epoch Marker was authorized to do so.
-   This section defines a mechanism for conveying that authorization
-   when the Epoch Bell is certified using an X.509 public-key
-   certificate [RFC5280].  Authorization of Epoch Bells that are not
-   certified using X.509 (e.g., ecosystems that convey authorization
-   semantics via CBOR-native structures) is out of scope of this
-   document.
 
 
 
-Birkholz, et al.          Expires 11 March 2027                [Page 16]
+
+Birkholz, et al.          Expires 18 March 2027                [Page 16]
 
 Internet-Draft                Epoch Markers               September 2026
 
+
+5.  Signature Requirements
+
+   An Epoch Marker does not intrinsically include a signature.  An Epoch
+   Bell-signed Epoch Marker is an Epoch Marker conveyed in a signed data
+   structure whose signature was generated by an Epoch Bell.  When a
+   recipient needs to establish that an Epoch Marker was issued by an
+   authorized Epoch Bell, the Epoch Marker MUST be an Epoch Bell-signed
+   Epoch Marker and its Epoch Bell signature MUST be validated.  This is
+   an alternative Epoch Marker distribution mechanism to the one
+   described in Section 4.1.7.
+
+   An Epoch ID value is often intended to be extracted from an Epoch
+   Bell-signed Epoch Marker and included in another protected message,
+   or conveyed via a secure channel.  Protection of that other message
+   does not by itself make the extracted value an Epoch Bell-signed
+   Epoch Marker, nor does it make its signer an Epoch Bell.
+
+6.  Epoch Bell Certification
+
+   Relying Parties that receive Epoch Bell-signed Epoch Markers directly
+   or as part of other RATS conceptual messages need a way to determine
+   whether the Bell signing key was authorized to do so.  This section
+   defines a mechanism for conveying that authorization when the Epoch
+   Bell is certified using an X.509 public-key certificate [RFC5280].
+   Authorization of Epoch Bells that are not certified using X.509
+   (e.g., ecosystems that convey authorization semantics via CBOR-native
+   structures) is out of scope of this document.
 
    An X.509 certificate for an Epoch Bell signing key MUST assert this
    specific purpose using the id-kp-epochBell extended key purpose
@@ -916,8 +944,15 @@ Internet-Draft                Epoch Markers               September 2026
       Markers.
 
    Relying parties that require X.509-certified Epoch Bells MUST reject
-   an Epoch Marker whose signing certificate does not satisfy these
-   constraints.
+   Epoch Bell-signed Epoch Markers whose signing certificate does not
+   satisfy these constraints.
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 17]
+
+Internet-Draft                Epoch Markers               September 2026
+
 
    The following module adheres to ASN.1 specifications [X.680] and
    [X.690].
@@ -942,40 +977,38 @@ Internet-Draft                Epoch Markers               September 2026
 
             Figure 3: Epoch Bell Extended Key Usage ASN.1 Module
 
-
-
-
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 17]
-
-Internet-Draft                Epoch Markers               September 2026
-
-
 7.  Security Considerations
 
    In distributed systems that rely on Epoch Markers for conveyance of
    freshness, the Epoch Bell plays a significant role in the assumed
-   trust model.  Freshness decisions derived from Epoch Markers depend
-   on the Epoch Bell’s key(s) and correct behavior.  If the Epoch Bell
-   key is compromised, or the Bell is malicious/misconfigured, an
-   attacker can emit valid-looking “fresh” Epoch Markers.  System
-   deployments using Epoch Markers generally need to protect Bell
-   signing keys (secure storage, rotation, revocation) and scope
-   acceptance to the intended trust domain (e.g., expected issuer/trust
-   anchor).  Similarly, the Bell's clock needs to be securely sourced
-   and managed, to prevent attacks that skew the Bell's perception of
-   time.
+   trust model.  Freshness decisions derived from Epoch Bell-signed
+   Epoch Markers depend on the Epoch Bell’s key(s) and correct behavior.
+   If the Epoch Bell key is compromised, or the Bell is malicious/
+   misconfigured, an attacker can emit valid-looking “fresh” Epoch Bell-
+   signed Epoch Markers.  System deployments using Epoch Markers
+   generally need to protect Bell signing keys (secure storage,
+   rotation, revocation) and scope acceptance to the intended trust
+   domain (e.g., expected issuer/trust anchor).  Similarly, the Bell's
+   clock needs to be securely sourced and managed, to prevent attacks
+   that skew the Bell's perception of time.
 
 7.1.  Epoch Bell Authorization
 
-   Because Epoch Markers are only as trustworthy as the process that
-   authorizes an entity to act as an Epoch Bell, relying parties need
-   means to verify that a signing key was actually authorized for that
-   purpose, and that the key is not shared with, or reused for,
-   unrelated duties.
+   Because Epoch Bell-signed Epoch Markers are only as trustworthy as
+   the process that authorizes an entity to act as an Epoch Bell,
+   relying parties need means to verify that a signing key was actually
+   authorized for that purpose, and that the key is not shared with, or
+   reused for, unrelated duties.
+
+
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 18]
+
+Internet-Draft                Epoch Markers               September 2026
+
 
    Deployments that certify Epoch Bells via X.509 SHOULD rely on the id-
    kp-epochBell Extended Key Usage defined in Section 6 to authorize and
@@ -983,7 +1016,7 @@ Internet-Draft                Epoch Markers               September 2026
    conforming path-validation implementations and, when a single-purpose
    EKU is asserted critical (as mandated in Section 6), provides an
    explicit, enforceable signal that a key's use is restricted to
-   generating Epoch Markers.
+   signing Epoch Markers.
 
    This mechanism only addresses X.509-certified Epoch Bells; it is an
    intermediate approach pending broader work on expressing
@@ -993,23 +1026,15 @@ Internet-Draft                Epoch Markers               September 2026
 7.2.  Epoch Signalling Issues
 
    Section 12.3 of [RFC9334] provides a good introduction to attacks on
-   conveyance of Epoch Markers.  A network adversary can replay validly
-   signed Epoch Markers or delay distribution, and differential latency
-   can lead to different parties having different views of the “current”
-   epoch.
+   conveyance of Epoch Markers.  A network adversary can replay valid
+   Epoch Bell-signed Epoch Markers or delay distribution, and
+   differential latency can lead to different parties having different
+   views of the “current” epoch.
 
    The epoch (acceptable window) duration is an operational security
    parameter: if too long, an Attester can create “good” Evidence in a
    good state and release it later while the epoch is still acceptable
    (notably for epoch-tick, epoch-tick-list, and strictly-monotonic-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 18]
-
-Internet-Draft                Epoch Markers               September 2026
-
-
    counter); if too short, distant Attesters may be rejected as stale
    due to latency.  Epoch Markers are also designed to be reusable by
    multiple consumers, unlike nonces.  Where per-session uniqueness is
@@ -1025,18 +1050,28 @@ Internet-Draft                Epoch Markers               September 2026
 
    *  _Nonce-bound Bell interaction_: When a Verifier uses a nonce
       challenge to trigger Evidence creation, the Attester can forward
-      that nonce to the Epoch Bell to request an Epoch Marker with the
-      nonce echoed inside.  For reuse and caching, the typical pattern
-      is to keep the marker generic and embed the Verifier nonce
-      alongside the marker in the Evidence: if the Bell signs a nonce-
-      echoed marker, that marker is not reusable across sessions.  The
-      nonce and marker are thus either bound by the Bell's signature, or
-      by the attester's signature on the Evidence.  The Verifier checks
-      that (1) the nonce matches its challenge, (2) the Epoch Marker
-      signature chains to the expected Bell key, and (3) the marker
-      satisfies the acceptance policy (e.g., highest-seen counter or
-      time window).  This pairing gives per-session uniqueness while
-      still allowing Epoch Marker reuse by multiple consumers.
+      that nonce to the Epoch Bell to request an Epoch Bell-signed Epoch
+      Marker with the nonce echoed inside.  For reuse and caching, the
+      typical pattern is to keep the marker generic and embed the
+      Verifier nonce alongside the marker in the Evidence: if the Bell
+      signs a nonce-echoed marker, that marker is not reusable across
+      sessions.  The nonce and marker are thus either bound by the
+      Bell's signature, or by the attester's signature on the Evidence.
+      The Verifier checks that (1) the nonce matches its challenge, (2)
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 19]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
+      the Epoch Marker signature chains to the expected signing key
+      (either the Bell's signing key, or the attester's Attesting Key),
+      and (3) the marker satisfies the acceptance policy (e.g., highest-
+      seen counter or time window).  This pairing gives per-session
+      uniqueness while still allowing Epoch Marker reuse by multiple
+      consumers.
 
    *  _Long-latency paths (e.g., LoRaWAN or DTN profiles)_: High
       propagation and queuing delays make tight epoch windows brittle.
@@ -1050,7 +1085,7 @@ Internet-Draft                Epoch Markers               September 2026
       window.
 
    *  _Large fleets sharing a Bell_: When many Attesters reuse the same
-      Epoch Marker, per-Attester state at the Verifier may be
+      Epoch Marker value, per-Attester state at the Verifier may be
       impractical.  One approach is to accept a global highest-seen
       epoch (with a bounded replay window) while requiring each Evidence
       record to bind the Epoch Marker to the Attester identity and, when
@@ -1058,13 +1093,6 @@ Internet-Draft                Epoch Markers               September 2026
       replay of a single Epoch Marker while keeping the Bell stateless,
       which allows Epoch Markers to be cached and enables their
       broadcast distribution at scale.
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 19]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
 8.  Privacy Considerations
 
@@ -1084,6 +1112,16 @@ Internet-Draft                Epoch Markers               September 2026
    an additional step, the scoping of markers (per trust domain,
    audience, or protocol context) should be considered.
 
+
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 20]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
 9.  IANA Considerations
 
 
@@ -1095,32 +1133,6 @@ Internet-Draft                Epoch Markers               September 2026
    IANA is requested to allocate the following tags in the "CBOR Tags"
    registry [IANA.cbor-tags], preferably with the specific CBOR tag
    value requested:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 20]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    +=======+========+===================================+===========+
    | Tag   | Data   | Semantics                         | Reference |
@@ -1158,6 +1170,14 @@ Internet-Draft                Epoch Markers               September 2026
    This specification adds the following value to the "CBOR Web Token
    Claims" registry [IANA.cwt].
 
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 21]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
    *  Claim Name: em
 
    *  Claim Description: Epoch Marker
@@ -1169,14 +1189,6 @@ Internet-Draft                Epoch Markers               September 2026
    *  Change Controller: IETF
 
    *  Specification Document(s): Section 4 of RFCthis
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 21]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
 9.3.  New Media Type application/epoch-marker+cbor
 
@@ -1210,29 +1222,24 @@ Internet-Draft                Epoch Markers               September 2026
    Author/Change controller:  IETF
    Provisional registration:  no
 
+
+
+
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 22]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
 9.4.  New CoAP Content-Formats
 
    IANA is requested to register the following Content-Format IDs in the
    "CoAP Content-Formats" registry, within the "Constrained RESTful
    Environments (CoRE) Parameters" registry group
    [IANA.core-parameters]:
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 22]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    +============================+=========+=======+===============+
    | Content-Type               | Content | ID    | Reference     |
@@ -1273,22 +1280,21 @@ Internet-Draft                Epoch Markers               September 2026
 
    If possible, TBD1..TBD10 should be assigned in the 256..9999 range.
 
+
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 23]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
 9.5.  New CMW Indicators
 
    IANA is requested to allocate the following values in the "RATS
    Conceptual Message Wrapper (CMW) Indicators" registry within the
    [IANA.rats] registry group:
-
-
-
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 23]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    +=================+=========================+======================+
    | Indicator Value | Conceptual Message Name | Reference            |
@@ -1332,19 +1338,19 @@ Internet-Draft                Epoch Markers               September 2026
 
 10.1.  Normative References
 
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 24]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
    [I-D.ietf-cbor-edn-literals]
               Bormann, C., "Concise Diagnostic Notation (CDN)", Work in
               Progress, Internet-Draft, draft-ietf-cbor-edn-literals-27,
               20 July 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-cbor-edn-literals-27>.
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 24]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J.,
@@ -1389,18 +1395,17 @@ Internet-Draft                Epoch Markers               September 2026
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 25]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
    [RFC3161]  Adams, C., Cain, P., Pinkas, D., and R. Zuccherato,
               "Internet X.509 Public Key Infrastructure Time-Stamp
               Protocol (TSP)", RFC 3161, DOI 10.17487/RFC3161, August
               2001, <https://www.rfc-editor.org/rfc/rfc3161>.
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 25]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -1444,19 +1449,19 @@ Internet-Draft                Epoch Markers               September 2026
               <https://www.rfc-editor.org/info/std94>.
               At the time of writing, this STD comprises the following:
 
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 26]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
               Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
               DOI 10.17487/RFC8949, December 2020,
               <https://www.rfc-editor.org/info/rfc8949>.
-
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 26]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    [STD96]    Internet Standard 96,
               <https://www.rfc-editor.org/info/std96>.
@@ -1500,19 +1505,21 @@ Internet-Draft                Epoch Markers               September 2026
               10, 18 May 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-rats-ar4si-10>.
 
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 27]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
    [I-D.ietf-rats-eat]
               Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
               Wallace, "The Entity Attestation Token (EAT)", Work in
               Progress, Internet-Draft, draft-ietf-rats-eat-31, 6
               September 2024, <https://datatracker.ietf.org/doc/html/
               draft-ietf-rats-eat-31>.
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 27]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    [I-D.ietf-rats-reference-interaction-models]
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
@@ -1554,21 +1561,20 @@ Internet-Draft                Epoch Markers               September 2026
               DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-
               Revision-53_1August2023.pdf>.
 
+
+
+
+
+Birkholz, et al.          Expires 18 March 2027                [Page 28]
+
+Internet-Draft                Epoch Markers               September 2026
+
+
    [TCG-TPM2] Trusted Computing Group, "Trusted Platform Module 2.0
               Library Part 2: Structures", Version 184, March 2025,
               <https://trustedcomputinggroup.org/wp-content/uploads/
               Trusted-Platform-Module-2.0-Library-Part-2-Version-
               184_pub.pdf>.
-
-
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 28]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
 Appendix A.  Examples
 
@@ -1615,13 +1621,7 @@ Appendix A.  Examples
 
 
 
-
-
-
-
-
-
-Birkholz, et al.          Expires 11 March 2027                [Page 29]
+Birkholz, et al.          Expires 18 March 2027                [Page 29]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -1677,7 +1677,7 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 11 March 2027                [Page 30]
+Birkholz, et al.          Expires 18 March 2027                [Page 30]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -1733,7 +1733,7 @@ A.1.  RFC 3161 TSTInfo
 
 
 
-Birkholz, et al.          Expires 11 March 2027                [Page 31]
+Birkholz, et al.          Expires 18 March 2027                [Page 31]
 
 Internet-Draft                Epoch Markers               September 2026
 
@@ -1789,4 +1789,4 @@ Authors' Addresses
 
 
 
-Birkholz, et al.          Expires 11 March 2027                [Page 32]
+Birkholz, et al.          Expires 18 March 2027                [Page 32]

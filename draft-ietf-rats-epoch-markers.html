@@ -1055,7 +1055,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 11 March 2027</td>
+<td class="center">Expires 18 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <dd class="internet-draft">draft-ietf-rats-epoch-markers-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-07" class="published">7 September 2026</time>
+<time datetime="2026-09-14" class="published">14 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-03-11">11 March 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-18">18 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1144,7 +1144,7 @@ Finally, it registers RATS Conceptual Message Wrapper (CMW) Indicators for Epoch
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1325,7 +1325,7 @@ At the time of writing, TSAs are the most common providers of secure time-stampi
 Therefore, reusing the core TSTInfo structure as an Epoch ID type for Epoch Markers is instrumental for enabling smooth migration paths and promote interoperability.
 There are, however, several other ways to represent a signed timestamp or the start of a new freshness epoch, respectively, and therefore other Epoch Marker types.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">To inform the design, this document discusses a number of interaction models in which Epoch Markers are expected to be exchanged.
-The default top-level structure of Epoch Markers described in this document is CBOR Web Tokens (CWT) <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>.
+The default container for Epoch Bell-signed Epoch Markers described in this document is CBOR Web Tokens (CWT) <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>.
 The present document specifies an extensible set of Epoch Marker types, along with the <code>em</code> CWT claim to include them in CWTs.
 CWTs are signed using COSE <span>[<a href="#STD96" class="cite xref">STD96</a>]</span> and benefit from wide tool support.
 However, CWTs are not the only containers in which Epoch Markers can be embedded.
@@ -1408,7 +1408,7 @@ In general, there are three major interaction models used in remote attestation:
 <p id="section-3-3">In all three interaction models, Epoch Markers can be used as content for the generic information element <code>handle</code> as introduced by <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>.
 Handles are used to establish freshness in ad-hoc, unsolicited, and solicited distribution mechanisms of an Epoch Bell.
 For example, an Epoch Marker can be used as a nonce in challenge-response remote attestation (e.g., for limiting the number of ad-hoc requests by a Verifier).
-If embedded in a CWT, an Epoch Marker can be used as a <code>handle</code> by extracting the value of the <code>em</code> Claim or by using the complete CWT including an <code>em</code> Claim (e.g., functioning as a signed time-stamp token).
+If embedded in a CWT, an Epoch Marker can be used as a <code>handle</code> by extracting the value of the <code>em</code> Claim or by using the complete Epoch Bell-signed CWT including an <code>em</code> Claim (e.g., functioning as a signed time-stamp token).
 Using an Epoch Marker requires the challenger to acquire an Epoch Marker beforehand, which may introduce a sensible overhead compared to using a simple nonce.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">When an Epoch Marker is used as the <code>handle</code> in the Passport or Background-Check challenge-response flows defined by <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, the Verifier <span class="bcp14">MUST</span> follow the relevant Epoch Marker validation and acceptance policy.
 That policy <span class="bcp14">MUST</span> fulfil the applicable requirements presented in this document, such as accepted epoch windows, replay or rollback detection state, and deployment-specific skew introduced by the Evidence path.<a href="#section-3-4" class="pilcrow">¶</a></p>
@@ -1427,7 +1427,8 @@ The specification of such "outer" structures and protocols and the means how to 
 This document defines the different types of Epoch Markers in <a href="#sec-iana-cbor-tags" class="auto internal xref">Section 9.1</a>.
 When the media type <code>application/epoch-marker+cbor</code> is used to label content as an Epoch Marker, the <code>em-type</code> media type parameter can optionally specify the Epoch Marker type by referencing its CBOR tag number.
 For example, an Epoch Marker can be used to construct a CBOR-based trusted time stamp token, similar in function to a <span>[<a href="#RFC3161" class="cite xref">RFC3161</a>]</span> TimeStampToken, using CWT and the <code>em</code> Claim defined in this document (see <a href="#fig-ex-2" class="auto internal xref">Figure 6</a> for an illustration).
-The value(s) that an Epoch Marker represents are intended to demonstrate freshness of messages and protocols, but they can also serve other purposes in cases where trusted timestamps or time intervals are required.
+The value(s) that an Epoch Marker represents are intended to demonstrate freshness of messages and protocols.
+Epoch Bell-signed Epoch Markers can also serve other purposes in cases where trusted timestamps or time intervals are required.
 Taken as an opaque value, it is possible to use Epoch Markers as values for a nonce field in existing data structures or protocols that already support extra data fields, such as <code>extraData</code> in TPMS_ATTEST <span>[<a href="#TCG-TPM2" class="cite xref">TCG-TPM2</a>]</span>.
 Similarities in the usage of nonces and Epoch Markers can sometimes lead to applications where both are used in the same interaction, albeit in different places and for different purposes.
 One example of such an application scenario is the "nested" use of classical nonces and Epoch Markers, whereby an Epoch Marker is requested to be used as a nonce value for a specific data structure, while a locally generated nonce is used to retrieve that Epoch Marker via an "outer" ad hoc interaction (e.g., nonce retrieval protocols that interact with an Epoch Bell to fetch an Epoch Marker to be used as a nonce).
@@ -1538,7 +1539,8 @@ SEQUENCE {
 <p id="section-4.1.2.1-3">This is the sha-256 hash of the string "EPOCH_BELL".<a href="#section-4.1.2.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1.2.1-4">The TimeStampToken obtained from the TSA <span class="bcp14">MUST</span> be stripped of the TSA signature.
 Only the TSTInfo is to be kept the rest <span class="bcp14">MUST</span> be discarded.
-The Epoch Bell COSE signature will replace the TSA signature.<a href="#section-4.1.2.1-4" class="pilcrow">¶</a></p>
+A TSTInfo structure is conveyed in an Epoch Bell-signed Epoch Marker.
+The COSE signature supplies the protection formerly supplied by the discarded TSA envelope.<a href="#section-4.1.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1743,6 +1745,9 @@ Asserting freshness of a conceptual message including an Epoch Tick from the epo
 </dd>
           <dd class="break"></dd>
 </dl>
+<p id="section-4.1.5-5">The Epoch Bell <span class="bcp14">MUST</span> provide the entire epoch-tick-list as an Epoch Bell-signed Epoch Marker.
+Once a receiver has verified and retained that list, it can use each extracted Epoch Tick value independently, with no attached Epoch Bell signature.
+Epoch Tick List cannot be used in cases where the issuer needs to be verified for each Epoch Tick individually during use.<a href="#section-4.1.5-5" class="pilcrow">¶</a></p>
 <div id="creation-4">
 <section id="section-4.1.5.1">
             <h5 id="name-creation-5">
@@ -1802,7 +1807,7 @@ To prove freshness, receivers <span class="bcp14">SHOULD</span> track the highes
 One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on epoch ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".<a href="#section-4.1.7-1" class="pilcrow">¶</a></p>
 <p id="section-4.1.7-2">An <code>epoclet</code> is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
-This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
+This is all data-origin-authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
 This makes it easy to use with common Evidence retrieval ABIs, which tend to limit the size of the challenge parameter to 64 bytes.<a href="#section-4.1.7-2" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-4.1.7-3">
 <pre>
@@ -1908,8 +1913,12 @@ Systems that use Epoch Markers <span class="bcp14">SHOULD</span> document whethe
       <h2 id="name-signature-requirements">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-signature-requirements" class="section-name selfRef">Signature Requirements</a>
       </h2>
-<p id="section-5-1">The signature over an Epoch Marker <span class="bcp14">MUST</span> be generated by the Epoch Bell.
-Conversely, applying the first signature to an Epoch Marker always makes the issuer of a signed message containing an Epoch Marker an Epoch Bell.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">An Epoch Marker does not intrinsically include a signature.
+An Epoch Bell-signed Epoch Marker is an Epoch Marker conveyed in a signed data structure whose signature was generated by an Epoch Bell.
+When a recipient needs to establish that an Epoch Marker was issued by an authorized Epoch Bell, the Epoch Marker <span class="bcp14">MUST</span> be an Epoch Bell-signed Epoch Marker and its Epoch Bell signature <span class="bcp14">MUST</span> be validated.
+This is an alternative Epoch Marker distribution mechanism to the one described in <a href="#sec-epoclet" class="auto internal xref">Section 4.1.7</a>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">An Epoch ID value is often intended to be extracted from an Epoch Bell-signed Epoch Marker and included in another protected message, or conveyed via a secure channel.
+Protection of that other message does not by itself make the extracted value an Epoch Bell-signed Epoch Marker, nor does it make its signer an Epoch Bell.<a href="#section-5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-epoch-bell-cert">
@@ -1917,7 +1926,7 @@ Conversely, applying the first signature to an Epoch Marker always makes the iss
       <h2 id="name-epoch-bell-certification">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-epoch-bell-certification" class="section-name selfRef">Epoch Bell Certification</a>
       </h2>
-<p id="section-6-1">Relying Parties that receive Epoch Markers directly or as part of other RATS conceptual messages need a way to determine whether the signing key that produced an Epoch Marker was authorized to do so.
+<p id="section-6-1">Relying Parties that receive Epoch Bell-signed Epoch Markers directly or as part of other RATS conceptual messages need a way to determine whether the Bell signing key was authorized to do so.
 This section defines a mechanism for conveying that authorization when the Epoch Bell is certified using an X.509 public-key certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
 Authorization of Epoch Bells that are not certified using X.509 (e.g., ecosystems that convey authorization semantics via CBOR-native structures) is out of scope of this document.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">An X.509 certificate for an Epoch Bell signing key <span class="bcp14">MUST</span> assert this specific purpose using the <code>id-kp-epochBell</code> extended key purpose identifier, defined below, in the certificate's Extended Key Usage (EKU) extension <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.12" class="relref">Section 4.2.1.12</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
@@ -1933,7 +1942,7 @@ Authorization of Epoch Bells that are not certified using X.509 (e.g., ecosystem
           <p id="section-6-4.3.1"><span class="bcp14">SHOULD NOT</span> include EKU values other than <code>id-kp-epochBell</code>, so that the key is not authorized for any purpose besides generating Epoch Markers.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-5">Relying parties that require X.509-certified Epoch Bells <span class="bcp14">MUST</span> reject an Epoch Marker whose signing certificate does not satisfy these constraints.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-5">Relying parties that require X.509-certified Epoch Bells <span class="bcp14">MUST</span> reject Epoch Bell-signed Epoch Markers whose signing certificate does not satisfy these constraints.<a href="#section-6-5" class="pilcrow">¶</a></p>
 <p id="section-6-6">The following module adheres to ASN.1 specifications <span>[<a href="#X.680" class="cite xref">X.680</a>]</span> and <span>[<a href="#X.690" class="cite xref">X.690</a>]</span>.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <span id="name-epoch-bell-extended-key-usa"></span><div id="fig-epoch-bell-eku">
 <figure id="figure-3">
@@ -1970,8 +1979,8 @@ END
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-7-1">In distributed systems that rely on Epoch Markers for conveyance of freshness, the Epoch Bell plays a significant role in the assumed trust model.
-Freshness decisions derived from Epoch Markers depend on the Epoch Bell’s key(s) and correct behavior.
-If the Epoch Bell key is compromised, or the Bell is malicious/misconfigured, an attacker can emit valid-looking “fresh” Epoch Markers.
+Freshness decisions derived from Epoch Bell-signed Epoch Markers depend on the Epoch Bell’s key(s) and correct behavior.
+If the Epoch Bell key is compromised, or the Bell is malicious/misconfigured, an attacker can emit valid-looking “fresh” Epoch Bell-signed Epoch Markers.
 System deployments using Epoch Markers generally need to protect Bell signing keys (secure storage, rotation, revocation) and scope acceptance to the intended trust domain (e.g., expected issuer/trust anchor).
 Similarly, the Bell's clock needs to be securely sourced and managed, to prevent attacks that skew the Bell's perception of time.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <div id="epoch-bell-authorization">
@@ -1979,9 +1988,9 @@ Similarly, the Bell's clock needs to be securely sourced and managed, to prevent
         <h3 id="name-epoch-bell-authorization">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-epoch-bell-authorization" class="section-name selfRef">Epoch Bell Authorization</a>
         </h3>
-<p id="section-7.1-1">Because Epoch Markers are only as trustworthy as the process that authorizes an entity to act as an Epoch Bell, relying parties need means to verify that a signing key was actually authorized for that purpose, and that the key is not shared with, or reused for, unrelated duties.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">Because Epoch Bell-signed Epoch Markers are only as trustworthy as the process that authorizes an entity to act as an Epoch Bell, relying parties need means to verify that a signing key was actually authorized for that purpose, and that the key is not shared with, or reused for, unrelated duties.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">Deployments that certify Epoch Bells via X.509 <span class="bcp14">SHOULD</span> rely on the <code>id-kp-epochBell</code> Extended Key Usage defined in <a href="#sec-epoch-bell-cert" class="auto internal xref">Section 6</a> to authorize and constrain Epoch Bell signing keys.
-Extended Key Usage is checked by conforming path-validation implementations and, when a single-purpose EKU is asserted critical (as mandated in <a href="#sec-epoch-bell-cert" class="auto internal xref">Section 6</a>), provides an explicit, enforceable signal that a key's use is restricted to generating Epoch Markers.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+Extended Key Usage is checked by conforming path-validation implementations and, when a single-purpose EKU is asserted critical (as mandated in <a href="#sec-epoch-bell-cert" class="auto internal xref">Section 6</a>), provides an explicit, enforceable signal that a key's use is restricted to signing Epoch Markers.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3">This mechanism only addresses X.509-certified Epoch Bells; it is an intermediate approach pending broader work on expressing authorization semantics for CBOR-native trust structures, which is out of scope of this document.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1991,7 +2000,7 @@ Extended Key Usage is checked by conforming path-validation implementations and,
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-epoch-signalling-issues" class="section-name selfRef">Epoch Signalling Issues</a>
         </h3>
 <p id="section-7.2-1"><span><a href="https://rfc-editor.org/rfc/rfc9334#section-12.3" class="relref">Section 12.3</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> provides a good introduction to attacks on conveyance of Epoch Markers.
-A network adversary can replay validly signed Epoch Markers or delay distribution, and differential latency can lead to different parties having different views of the “current” epoch.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+A network adversary can replay valid Epoch Bell-signed Epoch Markers or delay distribution, and differential latency can lead to different parties having different views of the “current” epoch.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.2-2">The epoch (acceptable window) duration is an operational security parameter: if too long, an Attester can create “good” Evidence in a good state and release it later while the epoch is still acceptable (notably for epoch-tick, epoch-tick-list, and strictly-monotonic-counter); if too short, distant Attesters may be rejected as stale due to latency.
 Epoch Markers are also designed to be reusable by multiple consumers, unlike nonces.
 Where per-session uniqueness is required, protocols typically need to bind Epoch Markers to an explicit nonce (e.g., see <a href="#sec-epoch-markers" class="auto internal xref">Section 4</a>).
@@ -2006,10 +2015,10 @@ Finally, system deployments using Epoch Markers are normally required to pin whi
 <p id="section-7.3-1">The following illustrative cases highlight “reasonable best practice” choices for balancing freshness, replay protection, and scalability.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.3-2.1">
-            <p id="section-7.3-2.1.1"><em>Nonce-bound Bell interaction</em>: When a Verifier uses a nonce challenge to trigger Evidence creation, the Attester can forward that nonce to the Epoch Bell to request an Epoch Marker with the nonce echoed inside.
+            <p id="section-7.3-2.1.1"><em>Nonce-bound Bell interaction</em>: When a Verifier uses a nonce challenge to trigger Evidence creation, the Attester can forward that nonce to the Epoch Bell to request an Epoch Bell-signed Epoch Marker with the nonce echoed inside.
 For reuse and caching, the typical pattern is to keep the marker generic and embed the Verifier nonce alongside the marker in the Evidence: if the Bell signs a nonce-echoed marker, that marker is not reusable across sessions.
 The nonce and marker are thus either bound by the Bell's signature, or by the attester's signature on the Evidence.
-The Verifier checks that (1) the nonce matches its challenge, (2) the Epoch Marker signature chains to the expected Bell key, and (3) the marker satisfies the acceptance policy (e.g., highest-seen counter or time window).
+The Verifier checks that (1) the nonce matches its challenge, (2) the Epoch Marker signature chains to the expected signing key (either the Bell's signing key, or the attester's Attesting Key), and (3) the marker satisfies the acceptance policy (e.g., highest-seen counter or time window).
 This pairing gives per-session uniqueness while still allowing Epoch Marker reuse by multiple consumers.<a href="#section-7.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.3-2.2">
@@ -2018,7 +2027,7 @@ In system deployments using Epoch Markers, epoch-tick-list can be pre-provisione
 Epoch duration should cover worst-case delivery plus clock skew of the Bell, and acceptance policies should allow an overlap (e.g., current and immediately previous epoch) to absorb in-flight drift while still rejecting replays beyond that window.<a href="#section-7.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.3-2.3">
-            <p id="section-7.3-2.3.1"><em>Large fleets sharing a Bell</em>: When many Attesters reuse the same Epoch Marker, per-Attester state at the Verifier may be impractical.
+            <p id="section-7.3-2.3.1"><em>Large fleets sharing a Bell</em>: When many Attesters reuse the same Epoch Marker value, per-Attester state at the Verifier may be impractical.
 One approach is to accept a global highest-seen epoch (with a bounded replay window) while requiring each Evidence record to bind the Epoch Marker to the Attester identity and, when feasible, a Verifier-provided nonce.
 This limits cross-attester replay of a single Epoch Marker while keeping the Bell stateless, which allows Epoch Markers to be cached and enables their broadcast distribution at scale.<a href="#section-7.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
