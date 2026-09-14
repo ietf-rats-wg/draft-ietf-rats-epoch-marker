@@ -60,7 +60,6 @@ normative:
 #    =: RFC9052
   RFC9581: CBOR-ETIME
   I-D.ietf-cose-cbor-encoded-cert: C509
-  I-D.ietf-cbor-edn-literals: EDN
   NIST-SP-800-pt2: DOI.10.6028/NIST.SP.800-57pt2r1
   X.680: CCITT.X680.2002
   X.690: CCITT.X690.2002
@@ -68,8 +67,8 @@ normative:
 informative:
   RFC9334: rats-arch
   I-D.ietf-rats-reference-interaction-models: rats-models
-  I-D.ietf-scitt-architecture: scitt-receipts
-  I-D.ietf-rats-eat: rats-eat
+  RFC9943: scitt-receipts
+  RFC9711: rats-eat
   I-D.ietf-lamps-csr-attestation: csr-attestation
   RFC9999: rats-cmw
   TCG-CoEvidence:
@@ -160,7 +159,7 @@ This document makes use of the following terms from other documents:
 
 {::boilerplate bcp14-tagged}
 
-In this document, CDDL {{-CDDL}} is used to describe the data formats.  The examples in {{examples}} use the CBOR Extended Diagnostic Notation (EDN, {{-EDN}}).
+In this document, CDDL {{-CDDL}} is used to describe the data formats.  The examples in {{examples}} use the Diagnostic Notation described in {{Section 8 of RFC8949@-CBOR}}.
 
 # Epoch IDs {#epoch-id}
 
@@ -748,7 +747,7 @@ The example in {{fig-ex-1}} shows an Epoch Marker with an `etime` as the Epoch M
 {::include cddl/examples/1.diag}
 ~~~~
 {: #fig-ex-1
-   title="CBOR Epoch Marker based on `etime` (EDN)"}
+   title="CBOR Epoch Marker based on `etime`)"}
 
 The encoded data item in CBOR pretty-printed form (hex with comments) is shown in {{fig-ex-1-pretty}}.
 
@@ -764,7 +763,7 @@ The example in {{fig-ex-2}} shows an Epoch Marker with an `etime` as the Epoch M
 {::include-fold cddl/examples/1-cwt.diag}
 ~~~~
 {: #fig-ex-2
-   title="CBOR Epoch Marker based on `etime` carried within a CWT (EDN)"}
+   title="CBOR Epoch Marker based on `etime` carried within a CWT"}
 
 The encoded data item in CBOR pretty-printed form (hex with comments) is shown in {{fig-ex-2-pretty}}.
 
