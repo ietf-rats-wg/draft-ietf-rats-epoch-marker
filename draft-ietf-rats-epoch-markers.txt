@@ -5,14 +5,14 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                              T. Fossati
-Expires: 18 March 2027                                            NVIDIA
+Expires: 23 April 2027                                            NVIDIA
                                                                   W. Pan
                                                      Huawei Technologies
                                                              I. Mihalcea
                                                                      Arm
                                                               C. Bormann
                                                   Universität Bremen TZI
-                                                       14 September 2026
+                                                         20 October 2026
 
 
                              Epoch Markers
@@ -53,9 +53,9 @@ About This Document
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 1]
+Birkholz, et al.          Expires 23 April 2027                 [Page 1]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 Status of This Memo
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 March 2027.
+   This Internet-Draft will expire on 23 April 2027.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 2]
+Birkholz, et al.          Expires 23 April 2027                 [Page 2]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
      4.4.  State and Sequencing Management . . . . . . . . . . . . .  16
@@ -134,8 +134,8 @@ Internet-Draft                Epoch Markers               September 2026
      10.2.  Informative References . . . . . . . . . . . . . . . . .  27
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  29
      A.1.  RFC 3161 TSTInfo  . . . . . . . . . . . . . . . . . . . .  31
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  32
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  31
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
 
 1.  Introduction
 
@@ -165,9 +165,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 3]
+Birkholz, et al.          Expires 23 April 2027                 [Page 3]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    In general (barring highly symmetrical topologies), epoch ticking
@@ -204,9 +204,9 @@ Internet-Draft                Epoch Markers               September 2026
    Epoch Markers can be included in any type of message that allows for
    the embedding of opaque bytes or CBOR data items.  Examples include
    the Collection CMW in [I-D.ietf-lamps-csr-attestation], Evidence
-   formats such as [TCG-CoEvidence] or [I-D.ietf-rats-eat], Attestation
-   Results formats such as [I-D.ietf-rats-ar4si], or the CWT Claims
-   Header Parameter of [I-D.ietf-scitt-architecture].
+   formats such as [TCG-CoEvidence] or [RFC9711], Attestation Results
+   formats such as [I-D.ietf-rats-ar4si], or the CWT Claims Header
+   Parameter of [RFC9943].
 
    Section 9.5 registers new Conceptual Message Wrapper (CMW) Indicators
    [RFC9999] for Epoch ID and Nonce, so that they can be identified and
@@ -221,9 +221,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 4]
+Birkholz, et al.          Expires 23 April 2027                 [Page 4]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    *  in systems that integrate the aforementioned protocols or data
@@ -255,8 +255,9 @@ Internet-Draft                Epoch Markers               September 2026
    capitals, as shown here.
 
    In this document, CDDL [RFC8610] is used to describe the data
-   formats.  The examples in Appendix A use the CBOR Extended Diagnostic
-   Notation (EDN, [I-D.ietf-cbor-edn-literals]).
+   formats.  The examples in Appendix A use the Diagnostic Notation
+   described in Section 8 of RFC 8949 [STD94] and Appendix G of
+   [RFC8610].
 
 2.  Epoch IDs
 
@@ -276,10 +277,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-
-Birkholz, et al.          Expires 18 March 2027                 [Page 5]
+Birkholz, et al.          Expires 23 April 2027                 [Page 5]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 3.  Interaction Models
@@ -333,9 +333,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 6]
+Birkholz, et al.          Expires 23 April 2027                 [Page 6]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 4.  Epoch Marker Structure
@@ -389,9 +389,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 7]
+Birkholz, et al.          Expires 23 April 2027                 [Page 7]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    epoch-marker = $tagged-epoch-id
@@ -445,9 +445,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 8]
+Birkholz, et al.          Expires 23 April 2027                 [Page 8]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 4.1.2.  Classical RFC 3161 TST Info
@@ -501,9 +501,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                 [Page 9]
+Birkholz, et al.          Expires 23 April 2027                 [Page 9]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    TST-info-based-on-CBOR-time-tag = {
@@ -557,9 +557,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 10]
+Birkholz, et al.          Expires 23 April 2027                [Page 10]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    serialNumber:
@@ -613,9 +613,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 11]
+Birkholz, et al.          Expires 23 April 2027                [Page 11]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    nonce:
@@ -669,9 +669,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 12]
+Birkholz, et al.          Expires 23 April 2027                [Page 12]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 4.1.4.1.  Creation
@@ -725,9 +725,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 13]
+Birkholz, et al.          Expires 23 April 2027                [Page 13]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 4.1.6.  Strictly Monotonically Increasing Counter
@@ -781,9 +781,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 14]
+Birkholz, et al.          Expires 23 April 2027                [Page 14]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    epoclet = [
@@ -837,9 +837,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 15]
+Birkholz, et al.          Expires 23 April 2027                [Page 15]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    It is RECOMMENDED that the handling (i.e., storage, replication and
@@ -893,9 +893,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 16]
+Birkholz, et al.          Expires 23 April 2027                [Page 16]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 5.  Signature Requirements
@@ -949,9 +949,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 17]
+Birkholz, et al.          Expires 23 April 2027                [Page 17]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    The following module adheres to ASN.1 specifications [X.680] and
@@ -1005,9 +1005,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 18]
+Birkholz, et al.          Expires 23 April 2027                [Page 18]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    Deployments that certify Epoch Bells via X.509 SHOULD rely on the id-
@@ -1061,9 +1061,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 19]
+Birkholz, et al.          Expires 23 April 2027                [Page 19]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
       the Epoch Marker signature chains to the expected signing key
@@ -1117,9 +1117,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 20]
+Birkholz, et al.          Expires 23 April 2027                [Page 20]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 9.  IANA Considerations
@@ -1173,9 +1173,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 21]
+Birkholz, et al.          Expires 23 April 2027                [Page 21]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    *  Claim Name: em
@@ -1229,9 +1229,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 22]
+Birkholz, et al.          Expires 23 April 2027                [Page 22]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 9.4.  New CoAP Content-Formats
@@ -1285,9 +1285,9 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 23]
+Birkholz, et al.          Expires 23 April 2027                [Page 23]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
 9.5.  New CMW Indicators
@@ -1341,24 +1341,18 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 24]
+Birkholz, et al.          Expires 23 April 2027                [Page 24]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
-
-   [I-D.ietf-cbor-edn-literals]
-              Bormann, C., "Concise Diagnostic Notation (CDN)", Work in
-              Progress, Internet-Draft, draft-ietf-cbor-edn-literals-27,
-              20 July 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-cbor-edn-literals-27>.
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J.,
               Furuhed, M., and L. Liao, "CBOR Encoded X.509 Certificates
               (C509 Certificates)", Work in Progress, Internet-Draft,
-              draft-ietf-cose-cbor-encoded-cert-20, 30 June 2026,
+              draft-ietf-cose-cbor-encoded-cert-21, 24 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-20>.
+              cbor-encoded-cert-21>.
 
    [IANA.core-parameters]
               IANA, "Constrained RESTful Environments (CoRE)
@@ -1395,17 +1389,18 @@ Internet-Draft                Epoch Markers               September 2026
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-
-
-Birkholz, et al.          Expires 18 March 2027                [Page 25]
-
-Internet-Draft                Epoch Markers               September 2026
-
-
    [RFC3161]  Adams, C., Cain, P., Pinkas, D., and R. Zuccherato,
               "Internet X.509 Public Key Infrastructure Time-Stamp
               Protocol (TSP)", RFC 3161, DOI 10.17487/RFC3161, August
               2001, <https://www.rfc-editor.org/rfc/rfc3161>.
+
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 25]
+
+Internet-Draft                Epoch Markers                 October 2026
+
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -1449,19 +1444,19 @@ Internet-Draft                Epoch Markers               September 2026
               <https://www.rfc-editor.org/info/std94>.
               At the time of writing, this STD comprises the following:
 
-
-
-
-
-Birkholz, et al.          Expires 18 March 2027                [Page 26]
-
-Internet-Draft                Epoch Markers               September 2026
-
-
               Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
               DOI 10.17487/RFC8949, December 2020,
               <https://www.rfc-editor.org/info/rfc8949>.
+
+
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 26]
+
+Internet-Draft                Epoch Markers                 October 2026
+
 
    [STD96]    Internet Standard 96,
               <https://www.rfc-editor.org/info/std96>.
@@ -1494,9 +1489,9 @@ Internet-Draft                Epoch Markers               September 2026
               Ounsworth, M., Tschofenig, H., Birkholz, H., Wiseman, M.,
               and N. Smith, "Use of Remote Attestation with
               Certification Signing Requests", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-csr-attestation-29, 2
-              September 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-csr-attestation-29>.
+              Internet-Draft, draft-ietf-lamps-csr-attestation-31, 19
+              October 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-lamps-csr-attestation-31>.
 
    [I-D.ietf-rats-ar4si]
               Voit, E., Birkholz, H., Hardjono, T., Fossati, T., and V.
@@ -1509,33 +1504,23 @@ Internet-Draft                Epoch Markers               September 2026
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 27]
+
+
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 27]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
-
-   [I-D.ietf-rats-eat]
-              Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
-              Wallace, "The Entity Attestation Token (EAT)", Work in
-              Progress, Internet-Draft, draft-ietf-rats-eat-31, 6
-              September 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-eat-31>.
 
    [I-D.ietf-rats-reference-interaction-models]
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-17, 2 April 2026,
+              reference-interaction-models-18, 17 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-17>.
-
-   [I-D.ietf-scitt-architecture]
-              Birkholz, H., Delignat-Lavaud, A., Fournet, C., Deshpande,
-              Y., and S. Lasker, "An Architecture for Trustworthy and
-              Transparent Digital Supply Chains", Work in Progress,
-              Internet-Draft, draft-ietf-scitt-architecture-22, 10
-              October 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-scitt-architecture-22>.
+              reference-interaction-models-18>.
 
    [IANA.cbor-tags]
               IANA, "Concise Binary Object Representation (CBOR) Tags",
@@ -1549,6 +1534,17 @@ Internet-Draft                Epoch Markers               September 2026
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
+   [RFC9711]  Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
+              Wallace, "The Entity Attestation Token (EAT)", RFC 9711,
+              DOI 10.17487/RFC9711, April 2025,
+              <https://www.rfc-editor.org/rfc/rfc9711>.
+
+   [RFC9943]  Birkholz, H., Delignat-Lavaud, A., Fournet, C., Deshpande,
+              Y., and S. Lasker, "An Architecture for Trustworthy and
+              Transparent Digital Supply Chains", RFC 9943,
+              DOI 10.17487/RFC9943, June 2026,
+              <https://www.rfc-editor.org/rfc/rfc9943>.
+
    [RFC9999]  Birkholz, H., Smith, N., Fossati, T., and H. Tschofenig,
               "Remote ATtestation procedureS (RATS) Conceptual Message
               Wrapper (CMW)", RFC 9999, DOI 10.17487/RFC9999, July 2026,
@@ -1561,20 +1557,18 @@ Internet-Draft                Epoch Markers               September 2026
               DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-
               Revision-53_1August2023.pdf>.
 
-
-
-
-
-Birkholz, et al.          Expires 18 March 2027                [Page 28]
-
-Internet-Draft                Epoch Markers               September 2026
-
-
    [TCG-TPM2] Trusted Computing Group, "Trusted Platform Module 2.0
               Library Part 2: Structures", Version 184, March 2025,
               <https://trustedcomputinggroup.org/wp-content/uploads/
               Trusted-Platform-Module-2.0-Library-Part-2-Version-
               184_pub.pdf>.
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 28]
+
+Internet-Draft                Epoch Markers                 October 2026
+
 
 Appendix A.  Examples
 
@@ -1589,7 +1583,7 @@ Appendix A.  Examples
      -11: { "u-ca": "hebrew" }
    })
 
-             Figure 4: CBOR Epoch Marker based on `etime` (EDN)
+               Figure 4: CBOR Epoch Marker based on `etime`)
 
    The encoded data item in CBOR pretty-printed form (hex with comments)
    is shown in Figure 5.
@@ -1621,9 +1615,15 @@ Appendix A.  Examples
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 29]
+
+
+
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 29]
 
-Internet-Draft                Epoch Markers               September 2026
+Internet-Draft                Epoch Markers                 October 2026
 
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -1650,37 +1650,9 @@ Internet-Draft                Epoch Markers               September 2026
    ])
 
      Figure 6: CBOR Epoch Marker based on `etime` carried within a CWT
-                                   (EDN)
 
    The encoded data item in CBOR pretty-printed form (hex with comments)
    is shown in Figure 7.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.          Expires 18 March 2027                [Page 30]
-
-Internet-Draft                Epoch Markers               September 2026
-
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1702,6 +1674,13 @@ Internet-Draft                Epoch Markers               September 2026
                                           xE1H\u0004\u001Ah\xC7\xE1\x84"
          49                                # bytes(9)
             737461747574617279             # "statutary"
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 30]
+
+Internet-Draft                Epoch Markers                 October 2026
+
 
      Figure 7: CBOR Epoch Marker based on `etime` carried within a CWT
                                 (pretty hex)
@@ -1730,14 +1709,6 @@ A.1.  RFC 3161 TSTInfo
       tsa                          [0] GeneralName          OPTIONAL,
       extensions                   [1] IMPLICIT Extensions   OPTIONAL  }
 
-
-
-
-Birkholz, et al.          Expires 18 March 2027                [Page 31]
-
-Internet-Draft                Epoch Markers               September 2026
-
-
 Acknowledgements
 
    The authors would like to thank Carl Wallace, Jeremy O'Donoghue, Jun
@@ -1758,6 +1729,13 @@ Authors' Addresses
    NVIDIA
    Switzerland
    Email: tfossati@nvidia.com
+
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 31]
+
+Internet-Draft                Epoch Markers                 October 2026
 
 
    Wei Pan
@@ -1789,4 +1767,26 @@ Authors' Addresses
 
 
 
-Birkholz, et al.          Expires 18 March 2027                [Page 32]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.          Expires 23 April 2027                [Page 32]
