@@ -235,7 +235,7 @@ The CBOR Time Tag represents a freshly sourced timestamp represented as either `
 The `etime` rule shown in the CDDL above is imported from {{Section 6 of -CBOR-ETIME}}; RFC 9581 remains the authoritative specification of CBOR tag 1001, and this document neither updates nor redefines it.
 This document merely profiles `etime` for use with Epoch Markers.
 
-No dedicated CBOR tag is allocated for the CBOR Time Tag type: the existing tags 0, 1 and 1001 are reused as-is.
+No dedicated CBOR tag is allocated for the CBOR Time Tags type: the existing tags 0, 1 and 1001 are reused as-is.
 The context (e.g., the `em` Claim or the `application/epoch-marker+cbor` media type) identifies the item as an Epoch Marker.
 
 #### Creation
