@@ -66,6 +66,7 @@ normative:
 
 informative:
   RFC9334: rats-arch
+  RFC8613:
   I-D.ietf-rats-reference-interaction-models: rats-models
   RFC9943: scitt-receipts
   RFC9711: rats-eat
@@ -425,6 +426,16 @@ The following describes the strictly-monotonic-counter type.
 strictly-monotonic-counter:
 
 : An unsigned integer used by RATS roles in a trust domain as extra data in the production of conceptual messages as specified by the RATS architecture {{-rats-arch}} to associate them with a certain epoch. Each new strictly-monotonic-counter value must be higher than the last one.
+
+#### Creation
+
+The Epoch Bell MUST NOT emit a counter value lower than or equal to one it has already emitted in the same counter context, including after a crash or restart.
+To this end, the Epoch Bell SHOULD persist its counter state, or otherwise resume from a value that is guaranteed to exceed the last one emitted before the failure.
+For example, the Epoch Bell can write the counter to non-volatile storage every K increments and, after restart, resume from the stored value plus K plus a margin F that accounts for failed or delayed writes, as described in {{Appendix B.1.1 of RFC8613}}.
+If such a margin cannot be guaranteed, the Epoch Bell MUST start a new counter context, e.g., by switching to a new signing key or Epoch Bell identity, so that receivers do not mistake the new values for rollback.
+
+The Epoch Bell MUST NOT wrap the counter on overflow.
+When the counter space is about to be exhausted, the Epoch Bell MUST start a new counter context.
 
 #### Usage
 
