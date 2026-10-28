@@ -758,13 +758,13 @@ Internet-Draft                Epoch Markers                 October 2026
    every K increments and, after restart, resume from the stored value
    plus K plus a margin F that accounts for failed or delayed writes, as
    described in Appendix B.1.1 of [RFC8613].  If such a margin cannot be
-   guaranteed, the Epoch Bell MUST start a new counter context.
+   guaranteed, the Epoch Bell MUST start a new counter context, e.g., by
+   switching to a new signing key or Epoch Bell identity, so that
+   receivers do not mistake the new values for rollback.
 
    The Epoch Bell MUST NOT wrap the counter on overflow.  When the
    counter space is about to be exhausted, the Epoch Bell MUST start a
-   new counter context, e.g., by switching to a new signing key or Epoch
-   Bell identity, so that receivers do not mistake the new values for
-   rollback.
+   new counter context.
 
 4.1.6.2.  Usage
 

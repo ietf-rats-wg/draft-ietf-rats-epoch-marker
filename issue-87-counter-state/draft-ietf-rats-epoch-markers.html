@@ -1795,9 +1795,9 @@ strictly-monotonic-counter = uint
 <p id="section-4.1.6.1-1">The Epoch Bell <span class="bcp14">MUST NOT</span> emit a counter value lower than or equal to one it has already emitted in the same counter context, including after a crash or restart.
 To this end, the Epoch Bell <span class="bcp14">SHOULD</span> persist its counter state, or otherwise resume from a value that is guaranteed to exceed the last one emitted before the failure.
 For example, the Epoch Bell can write the counter to non-volatile storage every K increments and, after restart, resume from the stored value plus K plus a margin F that accounts for failed or delayed writes, as described in <span><a href="https://rfc-editor.org/rfc/rfc8613#appendix-B.1.1" class="relref">Appendix B.1.1</a> of [<a href="#RFC8613" class="cite xref">RFC8613</a>]</span>.
-If such a margin cannot be guaranteed, the Epoch Bell <span class="bcp14">MUST</span> start a new counter context.<a href="#section-4.1.6.1-1" class="pilcrow">¶</a></p>
+If such a margin cannot be guaranteed, the Epoch Bell <span class="bcp14">MUST</span> start a new counter context, e.g., by switching to a new signing key or Epoch Bell identity, so that receivers do not mistake the new values for rollback.<a href="#section-4.1.6.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1.6.1-2">The Epoch Bell <span class="bcp14">MUST NOT</span> wrap the counter on overflow.
-When the counter space is about to be exhausted, the Epoch Bell <span class="bcp14">MUST</span> start a new counter context, e.g., by switching to a new signing key or Epoch Bell identity, so that receivers do not mistake the new values for rollback.<a href="#section-4.1.6.1-2" class="pilcrow">¶</a></p>
+When the counter space is about to be exhausted, the Epoch Bell <span class="bcp14">MUST</span> start a new counter context.<a href="#section-4.1.6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="usage-1">
