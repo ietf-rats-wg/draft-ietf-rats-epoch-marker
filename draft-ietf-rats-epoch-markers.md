@@ -525,7 +525,7 @@ Certificates conforming to this specification:
 
 * MUST include the EKU extension, marked critical, containing `id-kp-epochBell`;
 * MUST NOT include the anyExtendedKeyUsage value in the EKU extension; and
-* SHOULD NOT include EKU values other than `id-kp-epochBell`, so that the key is not authorized for any purpose besides generating Epoch Markers.
+* MUST NOT include EKU values other than `id-kp-epochBell`, so that the key is not authorized for any purpose besides generating Epoch Markers.
 
 Relying parties that require X.509-certified Epoch Bells MUST reject Epoch Bell-signed Epoch Markers whose signing certificate does not satisfy these constraints.
 
