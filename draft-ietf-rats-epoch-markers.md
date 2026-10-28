@@ -432,10 +432,10 @@ strictly-monotonic-counter:
 The Epoch Bell MUST NOT emit a counter value lower than or equal to one it has already emitted in the same counter context, including after a crash or restart.
 To this end, the Epoch Bell SHOULD persist its counter state, or otherwise resume from a value that is guaranteed to exceed the last one emitted before the failure.
 For example, the Epoch Bell can write the counter to non-volatile storage every K increments and, after restart, resume from the stored value plus K plus a margin F that accounts for failed or delayed writes, as described in {{Appendix B.1.1 of RFC8613}}.
-If such a margin cannot be guaranteed, the Epoch Bell MUST start a new counter context.
+If such a margin cannot be guaranteed, the Epoch Bell MUST start a new counter context, e.g., by switching to a new signing key or Epoch Bell identity, so that receivers do not mistake the new values for rollback.
 
 The Epoch Bell MUST NOT wrap the counter on overflow.
-When the counter space is about to be exhausted, the Epoch Bell MUST start a new counter context, e.g., by switching to a new signing key or Epoch Bell identity, so that receivers do not mistake the new values for rollback.
+When the counter space is about to be exhausted, the Epoch Bell MUST start a new counter context.
 
 #### Usage
 
