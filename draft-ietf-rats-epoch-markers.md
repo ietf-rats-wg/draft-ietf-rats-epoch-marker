@@ -468,14 +468,19 @@ AuthTag:
 : 32 bytes string which is the result of applying HMAC {{!RFC2104}} with SHA-256 over the CBOR serialization of the TimeToken array.
 The serialization MUST use the CBOR deterministic encoding as specified in {{Section 4.2 of RFC8949@-CBOR}}.
 
-#### Usage
+#### Creation
 
-The same size limit defined in {{sec-nonce-reqs}} applies: an encoded `epoclet` MUST be no more than 64 bytes in length.
-
-The requirements in {{sec-time-reqs}} apply.
+The emitter MUST follow the requirements in {{sec-time-reqs}}.
 Furthermore, when used in a server farm, the clocks of the servers that participate in the protocol MUST be synchronized.
 
+The emitter builds the `TimeToken` array from the identifier of the current key, the current time and, optionally, padding, and computes the `AuthTag` over it as described above.
+
 It is RECOMMENDED that the handling (i.e., storage, replication and rotation) of the symmetric key used to generate the authentication tag follows the recommendations and best practices described in {{NIST-SP-800-pt2}}.
+
+#### Usage
+
+The same size limit defined in {{sec-nonce-reqs}} applies: the encoded `epoclet` array MUST be no more than 64 bytes in length.
+The limit applies to the size of the `epoclet` value only, i.e., it does not include the Epoch Marker CBOR tag (26985).
 
 ## Time Requirements {#sec-time-reqs}
 
