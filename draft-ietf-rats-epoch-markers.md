@@ -480,7 +480,7 @@ It is RECOMMENDED that the handling (i.e., storage, replication and rotation) of
 #### Usage
 
 The same size limit defined in {{sec-nonce-reqs}} applies: the encoded `epoclet` array MUST be no more than 64 bytes in length.
-The limit applies to the `epoclet` alone, i.e., it does not include the Epoch Marker CBOR tag (26985).
+The limit applies to the size of the `epoclet` value only, i.e., it does not include the Epoch Marker CBOR tag (26985).
 
 ## Time Requirements {#sec-time-reqs}
 
