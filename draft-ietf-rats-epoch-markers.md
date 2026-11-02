@@ -656,7 +656,7 @@ This specification adds the following value to the "CBOR Web Token Claims" regis
 * Claim Name: em
 * Claim Description: Epoch Marker
 * Claim Key: 2000 (IANA: suggested assignment)
-* Claim Value Type(s): CBOR-tagged data item
+* Claim Value Type(s): CBOR-tagged Epoch ID
 * Change Controller: IETF
 * Specification Document(s): {{sec-epoch-markers}} of {{&SELF}}
 
