@@ -103,7 +103,7 @@ Table of Contents
        4.1.4.  Epoch Tick  . . . . . . . . . . . . . . . . . . . . .  12
        4.1.5.  Epoch Tick List . . . . . . . . . . . . . . . . . . .  13
        4.1.6.  Strictly Monotonically Increasing Counter . . . . . .  14
-       4.1.7.  Epoclet . . . . . . . . . . . . . . . . . . . . . . .  14
+       4.1.7.  Epoclet . . . . . . . . . . . . . . . . . . . . . . .  15
      4.2.  Time Requirements . . . . . . . . . . . . . . . . . . . .  16
      4.3.  Nonce Requirements  . . . . . . . . . . . . . . . . . . .  16
 
@@ -114,28 +114,28 @@ Birkholz, et al.           Expires 6 May 2027                   [Page 2]
 Internet-Draft                Epoch Markers                November 2026
 
 
-     4.4.  State and Sequencing Management . . . . . . . . . . . . .  16
+     4.4.  State and Sequencing Management . . . . . . . . . . . . .  17
    5.  Signature Requirements  . . . . . . . . . . . . . . . . . . .  17
-   6.  Epoch Bell Certification  . . . . . . . . . . . . . . . . . .  17
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
-     7.1.  Epoch Bell Authorization  . . . . . . . . . . . . . . . .  18
-     7.2.  Epoch Signalling Issues . . . . . . . . . . . . . . . . .  19
-     7.3.  Operational Examples  . . . . . . . . . . . . . . . . . .  19
-   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  20
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  21
-     9.1.  New CBOR Tags . . . . . . . . . . . . . . . . . . . . . .  21
-     9.2.   New EM CWT Claim . . . . . . . . . . . . . . . . . . . .  21
-     9.3.  New Media Type application/epoch-marker+cbor  . . . . . .  22
-     9.4.  New CoAP Content-Formats  . . . . . . . . . . . . . . . .  23
-     9.5.  New CMW Indicators  . . . . . . . . . . . . . . . . . . .  24
-     9.6.  New SMI Numbers Registrations . . . . . . . . . . . . . .  24
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  24
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  27
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  29
-     A.1.  RFC 3161 TSTInfo  . . . . . . . . . . . . . . . . . . . .  31
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  31
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
+   6.  Epoch Bell Certification  . . . . . . . . . . . . . . . . . .  18
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
+     7.1.  Epoch Bell Authorization  . . . . . . . . . . . . . . . .  19
+     7.2.  Epoch Signalling Issues . . . . . . . . . . . . . . . . .  20
+     7.3.  Operational Examples  . . . . . . . . . . . . . . . . . .  20
+   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  21
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
+     9.1.  New CBOR Tags . . . . . . . . . . . . . . . . . . . . . .  22
+     9.2.   New EM CWT Claim . . . . . . . . . . . . . . . . . . . .  22
+     9.3.  New Media Type application/epoch-marker+cbor  . . . . . .  23
+     9.4.  New CoAP Content-Formats  . . . . . . . . . . . . . . . .  24
+     9.5.  New CMW Indicators  . . . . . . . . . . . . . . . . . . .  25
+     9.6.  New SMI Numbers Registrations . . . . . . . . . . . . . .  25
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  25
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  28
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  30
+     A.1.  RFC 3161 TSTInfo  . . . . . . . . . . . . . . . . . . . .  32
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  32
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
 
 1.  Introduction
 
@@ -747,12 +747,44 @@ Internet-Draft                Epoch Markers                November 2026
       epoch.  Each new strictly-monotonic-counter value must be higher
       than the last one.
 
-4.1.6.1.  Usage
+4.1.6.1.  Creation
+
+   The Epoch Bell MUST NOT emit a counter value lower than or equal to
+   one it has already emitted in the same counter context, including
+   after a crash or restart.  To this end, the Epoch Bell SHOULD persist
+   its counter state, or otherwise resume from a value that is
+   guaranteed to exceed the last one emitted before the failure.  For
+   example, the Epoch Bell can write the counter to non-volatile storage
+   every K increments and, after restart, resume from the stored value
+   plus K plus a margin F that accounts for failed or delayed writes, as
+   described in Appendix B.1.1 of [RFC8613].  If such a margin cannot be
+   guaranteed, the Epoch Bell MUST start a new counter context, e.g., by
+   switching to a new signing key or Epoch Bell identity, so that
+   receivers do not mistake the new values for rollback.
+
+   The Epoch Bell MUST NOT wrap the counter on overflow.  When the
+   counter space is about to be exhausted, the Epoch Bell MUST start a
+   new counter context.
+
+4.1.6.2.  Usage
 
    Systems that use Epoch Markers SHOULD follow the guidance in
    Section 4.4 in establishing an Epoch Marker acceptance policy for
    receivers.  To prove freshness, receivers SHOULD track the highest
    accepted counter and ensure it fulfills the acceptance policy.
+
+
+
+
+
+
+
+
+
+Birkholz, et al.           Expires 6 May 2027                  [Page 14]
+
+Internet-Draft                Epoch Markers                November 2026
+
 
 4.1.7.  Epoclet
 
@@ -771,20 +803,6 @@ Internet-Draft                Epoch Markers                November 2026
    within 64 bytes.  This makes it easy to use with common Evidence
    retrieval ABIs, which tend to limit the size of the challenge
    parameter to 64 bytes.
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.           Expires 6 May 2027                  [Page 14]
-
-Internet-Draft                Epoch Markers                November 2026
-
 
    epoclet = [
      TimeToken
@@ -813,6 +831,17 @@ Internet-Draft                Epoch Markers                November 2026
       this Epoch ID to one second.
 
    Pad:
+
+
+
+
+
+
+Birkholz, et al.           Expires 6 May 2027                  [Page 15]
+
+Internet-Draft                Epoch Markers                November 2026
+
+
       Zero or more (up to 20) bytes of padding.  This field is used to
       adjust the overall size of the epoclet, ranging from a minimum of
       44 bytes (0 bytes of padding) to a maximum of 64 bytes (20 bytes
@@ -832,15 +861,6 @@ Internet-Draft                Epoch Markers                November 2026
    The requirements in Section 4.2 apply.  Furthermore, when used in a
    server farm, the clocks of the servers that participate in the
    protocol MUST be synchronized.
-
-
-
-
-
-Birkholz, et al.           Expires 6 May 2027                  [Page 15]
-
-Internet-Draft                Epoch Markers                November 2026
-
 
    It is RECOMMENDED that the handling (i.e., storage, replication and
    rotation) of the symmetric key used to generate the authentication
@@ -862,6 +882,21 @@ Internet-Draft                Epoch Markers                November 2026
    A maximum nonce size of 512 bits is set to limit the memory
    requirements.  All receivers MUST be able to accommodate the maximum
    size.
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.           Expires 6 May 2027                  [Page 16]
+
+Internet-Draft                Epoch Markers                November 2026
+
 
 4.4.  State and Sequencing Management
 
@@ -889,15 +924,6 @@ Internet-Draft                Epoch Markers                November 2026
    SHOULD document whether they use global epoch tracking or per-
    Attester state and, if necessary, the associated window.
 
-
-
-
-
-Birkholz, et al.           Expires 6 May 2027                  [Page 16]
-
-Internet-Draft                Epoch Markers                November 2026
-
-
 5.  Signature Requirements
 
    An Epoch Marker does not intrinsically include a signature.  An Epoch
@@ -914,6 +940,19 @@ Internet-Draft                Epoch Markers                November 2026
    or conveyed via a secure channel.  Protection of that other message
    does not by itself make the extracted value an Epoch Bell-signed
    Epoch Marker, nor does it make its signer an Epoch Bell.
+
+
+
+
+
+
+
+
+
+Birkholz, et al.           Expires 6 May 2027                  [Page 17]
+
+Internet-Draft                Epoch Markers                November 2026
+
 
 6.  Epoch Bell Certification
 
@@ -947,15 +986,29 @@ Internet-Draft                Epoch Markers                November 2026
    Epoch Bell-signed Epoch Markers whose signing certificate does not
    satisfy these constraints.
 
+   The following module adheres to ASN.1 specifications [X.680] and
+   [X.690].
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.           Expires 6 May 2027                  [Page 18]
 
 Internet-Draft                Epoch Markers                November 2026
 
-
-   The following module adheres to ASN.1 specifications [X.680] and
-   [X.690].
 
    EpochBell-EKU
        { iso(1) identified-organization(3) dod(6) internet(1)
@@ -1005,7 +1058,10 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 18]
+
+
+
+Birkholz, et al.           Expires 6 May 2027                  [Page 19]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1061,7 +1117,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 19]
+Birkholz, et al.           Expires 6 May 2027                  [Page 20]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1117,7 +1173,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 20]
+Birkholz, et al.           Expires 6 May 2027                  [Page 21]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1173,7 +1229,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 21]
+Birkholz, et al.           Expires 6 May 2027                  [Page 22]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1229,7 +1285,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 22]
+Birkholz, et al.           Expires 6 May 2027                  [Page 23]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1285,7 +1341,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 23]
+Birkholz, et al.           Expires 6 May 2027                  [Page 24]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1341,7 +1397,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 24]
+Birkholz, et al.           Expires 6 May 2027                  [Page 25]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1397,7 +1453,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 25]
+Birkholz, et al.           Expires 6 May 2027                  [Page 26]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1453,7 +1509,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 26]
+Birkholz, et al.           Expires 6 May 2027                  [Page 27]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1509,7 +1565,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 27]
+Birkholz, et al.           Expires 6 May 2027                  [Page 28]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1528,6 +1584,11 @@ Internet-Draft                Epoch Markers                November 2026
 
    [IANA.cwt] IANA, "CBOR Web Token (CWT) Claims",
               <https://www.iana.org/assignments/cwt>.
+
+   [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
+              "Object Security for Constrained RESTful Environments
+              (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
+              <https://www.rfc-editor.org/rfc/rfc8613>.
 
    [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
               W. Pan, "Remote ATtestation procedureS (RATS)
@@ -1557,18 +1618,19 @@ Internet-Draft                Epoch Markers                November 2026
               DICE-Concise-Evidence-Binding-for-SPDM-Version-1.0-
               Revision-53_1August2023.pdf>.
 
+
+
+
+Birkholz, et al.           Expires 6 May 2027                  [Page 29]
+
+Internet-Draft                Epoch Markers                November 2026
+
+
    [TCG-TPM2] Trusted Computing Group, "Trusted Platform Module 2.0
               Library Part 2: Structures", Version 184, March 2025,
               <https://trustedcomputinggroup.org/wp-content/uploads/
               Trusted-Platform-Module-2.0-Library-Part-2-Version-
               184_pub.pdf>.
-
-
-
-Birkholz, et al.           Expires 6 May 2027                  [Page 28]
-
-Internet-Draft                Epoch Markers                November 2026
-
 
 Appendix A.  Examples
 
@@ -1615,13 +1677,7 @@ Appendix A.  Examples
 
 
 
-
-
-
-
-
-
-Birkholz, et al.           Expires 6 May 2027                  [Page 29]
+Birkholz, et al.           Expires 6 May 2027                  [Page 30]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1677,7 +1733,7 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 30]
+Birkholz, et al.           Expires 6 May 2027                  [Page 31]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1733,7 +1789,7 @@ Authors' Addresses
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 31]
+Birkholz, et al.           Expires 6 May 2027                  [Page 32]
 
 Internet-Draft                Epoch Markers                November 2026
 
@@ -1789,4 +1845,4 @@ Internet-Draft                Epoch Markers                November 2026
 
 
 
-Birkholz, et al.           Expires 6 May 2027                  [Page 32]
+Birkholz, et al.           Expires 6 May 2027                  [Page 33]
