@@ -853,19 +853,27 @@ Internet-Draft                Epoch Markers                November 2026
       The serialization MUST use the CBOR deterministic encoding as
       specified in Section 4.2 of RFC 8949 [STD94].
 
-4.1.7.1.  Usage
+4.1.7.1.  Creation
 
-   The same size limit defined in Section 4.3 applies: an encoded
-   epoclet MUST be no more than 64 bytes in length.
+   The emitter MUST follow the requirements in Section 4.2.
+   Furthermore, when used in a server farm, the clocks of the servers
+   that participate in the protocol MUST be synchronized.
 
-   The requirements in Section 4.2 apply.  Furthermore, when used in a
-   server farm, the clocks of the servers that participate in the
-   protocol MUST be synchronized.
+   The emitter builds the TimeToken array from the identifier of the
+   current key, the current time and, optionally, padding, and computes
+   the AuthTag over it as described above.
 
    It is RECOMMENDED that the handling (i.e., storage, replication and
    rotation) of the symmetric key used to generate the authentication
    tag follows the recommendations and best practices described in
    [NIST-SP-800-pt2].
+
+4.1.7.2.  Usage
+
+   The same size limit defined in Section 4.3 applies: the encoded
+   epoclet array MUST be no more than 64 bytes in length.  The limit
+   applies to the size of the epoclet value only, i.e., it does not
+   include the Epoch Marker CBOR tag (26985).
 
 4.2.  Time Requirements
 
@@ -882,14 +890,6 @@ Internet-Draft                Epoch Markers                November 2026
    A maximum nonce size of 512 bits is set to limit the memory
    requirements.  All receivers MUST be able to accommodate the maximum
    size.
-
-
-
-
-
-
-
-
 
 
 
