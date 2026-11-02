@@ -939,7 +939,7 @@ Internet-Draft                Epoch Markers                November 2026
    *  MUST NOT include the anyExtendedKeyUsage value in the EKU
       extension; and
 
-   *  SHOULD NOT include EKU values other than id-kp-epochBell, so that
+   *  MUST NOT include EKU values other than id-kp-epochBell, so that
       the key is not authorized for any purpose besides generating Epoch
       Markers.
 

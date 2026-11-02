@@ -1941,7 +1941,7 @@ Authorization of Epoch Bells that are not certified using X.509 (e.g., ecosystem
           <p id="section-6-4.2.1"><span class="bcp14">MUST NOT</span> include the anyExtendedKeyUsage value in the EKU extension; and<a href="#section-6-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.3">
-          <p id="section-6-4.3.1"><span class="bcp14">SHOULD NOT</span> include EKU values other than <code>id-kp-epochBell</code>, so that the key is not authorized for any purpose besides generating Epoch Markers.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-6-4.3.1"><span class="bcp14">MUST NOT</span> include EKU values other than <code>id-kp-epochBell</code>, so that the key is not authorized for any purpose besides generating Epoch Markers.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-5">Relying parties that require X.509-certified Epoch Bells <span class="bcp14">MUST</span> reject Epoch Bell-signed Epoch Markers whose signing certificate does not satisfy these constraints.<a href="#section-6-5" class="pilcrow">¶</a></p>
