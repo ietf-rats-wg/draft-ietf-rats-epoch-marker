@@ -1240,7 +1240,7 @@ Internet-Draft                Epoch Markers                November 2026
 
    *  Claim Key: 2000 (IANA: suggested assignment)
 
-   *  Claim Value Type(s): CBOR-tagged data item
+   *  Claim Value Type(s): CBOR-tagged Epoch ID
 
    *  Change Controller: IETF
 
