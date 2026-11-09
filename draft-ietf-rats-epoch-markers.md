@@ -101,7 +101,6 @@ Systems receiving Epoch Markers do not need to track freshness using their own u
 Instead, the reception of a specific Epoch Marker establishes a new epoch that is shared among all recipients.
 This document defines Epoch Marker types, including CBOR time tags, RFC 3161 TimeStampToken, and nonce-like structures.
 It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, which serve as vehicles for signed protocol messages.
-Finally, it registers RATS Conceptual Message Wrapper (CMW) Indicators for Epoch ID and Nonce.
 
 --- middle
 
@@ -138,7 +137,6 @@ However, CWTs are not the only containers in which Epoch Markers can be embedded
 Epoch Markers can be included in any type of message that allows for the embedding of opaque bytes or CBOR data items.
 Examples include the Collection CMW in {{-csr-attestation}}, Evidence formats such as {{TCG-CoEvidence}} or {{-rats-eat}}, Attestation Results formats such as {{-rats-ar4si}}, or the CWT Claims Header Parameter of {{-scitt-receipts}}.
 
-{{sec-iana-cmw-indicators}} registers new Conceptual Message Wrapper (CMW) Indicators {{-rats-cmw}} for Epoch ID and Nonce, so that they can be identified and carried as first-class conceptual messages.
 
 Epoch markers can be used in the following ways:
 
@@ -188,6 +186,8 @@ That policy MUST fulfil the applicable requirements presented in this document, 
 
 For Background-Check, the policy MUST account for the additional path through the Relying Party before Evidence reaches the Verifier.
 For Passport, any Attestation Result derived from such Evidence MUST remain bound to the Epoch Marker, or to the `handle` containing it, so that subsequent freshness decisions can be made according to Relying Party policy.
+
+Note that {{-rats-models}} registers the Conceptual Message Wrapper (CMW) Indicator for Handle, which can be used to identify Epoch Markers transported in CMWs {{-rats-cmw}}.
 
 # Epoch Marker Structure {#sec-epoch-markers}
 
@@ -730,16 +730,6 @@ IANA is requested to register the following Content-Format IDs in the "CoAP Cont
 {: align="left" title="New CoAP Content Formats"}
 
 If possible, TBD1..TBD10 should be assigned in the 256..9999 range.
-
-## New CMW Indicators {#sec-iana-cmw-indicators}
-
-IANA is requested to allocate the following values in the "RATS Conceptual Message Wrapper (CMW) Indicators" registry within the {{!IANA.rats}} registry group:
-
-| Indicator Value | Conceptual Message Name | Reference |
-| -- | -- | -- |
-| TBD13 | Epoch ID | {{epoch-id}} of {{&SELF}} |
-| TBD14 | Nonce | {{Section 10.2 of -rats-arch}} |
-{: #tbl-cmw-indicators align="left" title="New CMW Indicators"}
 
 ## New SMI Numbers Registrations {#iana-smi}
 
