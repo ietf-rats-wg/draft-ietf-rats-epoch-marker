@@ -187,7 +187,7 @@ That policy MUST fulfil the applicable requirements presented in this document, 
 For Background-Check, the policy MUST account for the additional path through the Relying Party before Evidence reaches the Verifier.
 For Passport, any Attestation Result derived from such Evidence MUST remain bound to the Epoch Marker, or to the `handle` containing it, so that subsequent freshness decisions can be made according to Relying Party policy.
 
-Note that {{-rats-models}} registers the Conceptual Message Wrapper (CMW) Indicator for Handle, that can be used to identify Epoch Markers transported in CMWs {{-rats-cmw}}.
+Note that {{-rats-models}} registers the Conceptual Message Wrapper (CMW) Indicator for Handle, which can be used to identify Epoch Markers transported in CMWs {{-rats-cmw}}.
 
 # Epoch Marker Structure {#sec-epoch-markers}
 
