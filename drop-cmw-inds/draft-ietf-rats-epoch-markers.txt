@@ -325,7 +325,7 @@ Internet-Draft                Epoch Markers                November 2026
    Party policy.
 
    Note that [I-D.ietf-rats-reference-interaction-models] registers the
-   Conceptual Message Wrapper (CMW) Indicator for Handle, that can be
+   Conceptual Message Wrapper (CMW) Indicator for Handle, which can be
    used to identify Epoch Markers transported in CMWs [RFC9999].
 
 
