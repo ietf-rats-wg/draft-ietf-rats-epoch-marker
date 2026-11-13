@@ -2,6 +2,8 @@
 title: "Epoch Markers Update"
 footer: IETF 127, San Francisco, RATS WG
 slidenumbers: true
+slidecount: true
+slidenumber-style: alignment(right)
 autoscale: true
 theme: Next
 ---
@@ -18,7 +20,7 @@ theme: Next
 
 | Rev | Main changes |
 |-----|--------------|
-| -04 | Epoclet; `etime` imported from RFC 9581; `em-type` parameter and CoAP C-Fs; interaction-model text |
+| -04 | Epoclet; `etime` imported from RFC 9581; `em-type` parameter and CoAP Content-Formats; interaction-model text |
 | -05 | Privacy Considerations |
 | -06 | Epoch Bell EKU; "Epoch Bell-signed" clarified; epoch-tick-list signing |
 | -07 | CBOR time tags; stricter EKU; counter state; epoclet section reworked |
@@ -49,18 +51,18 @@ theme: Next
 
 ---
 
-## Changed: `etime` is imported, not redefined (-04)
+## [fit] Changed: `etime` is imported, not redefined (-04)
 
 - Previously: the draft redefined tag 1001 in its CDDL
 - Now: `etime` imported from RFC 9581; this document only profiles it
   - key 1 (POSIX time) is mandatory
-  - optional accuracy (key -8), no string keys
+  - optional accuracy guarantee (key -8), no string keys
   - extra keys must be negative integers; critical (unsigned) keys are discouraged: they hurt interoperability
 - No new CBOR tag is introduced
 
 ---
 
-## New: explicit statement on CBOR Time Tags (-07)
+## [fit] New: explicit statement on CBOR Time Tags (-07)
 
 - Tags 0, 1 and 1001 are reused as-is; no dedicated Epoch Marker tag is allocated
 - The context (`em` claim, media type) identifies the item as an Epoch Marker
@@ -83,7 +85,8 @@ theme: Next
 ## Clarified: "Epoch Bell-signed Epoch Marker" (-06)
 
 - An Epoch Marker has no intrinsic signature
-- "Epoch Bell-signed Epoch Marker": conveyed in a structure signed by an Epoch Bell
+- "Epoch Bell-signed Epoch Marker":
+  conveyed in a structure signed by an Epoch Bell
   - required whenever the recipient must establish issuance by an authorised Bell
 - Extracting an Epoch ID into another signed message does not make the new signer a Bell
 - Epoch Tick List: the whole list MUST be Bell-signed; ticks are then used individually without signatures
@@ -101,7 +104,7 @@ theme: Next
 
 ## New: counter state requirements (-07)
 
-- Strictly monotonic counter: the Epoch Bell MUST NOT emit a value `<=` one already emitted
+- Strictly monotonic counter: the Epoch Bell MUST NOT emit a value $$≤$$ one already emitted
   - including across crashes and restarts
 - SHOULD persist state; or resume with a safe margin (technique from RFC 8613, Appendix B.1.1)
 - If safety cannot be guaranteed: MUST start a new counter context (e.g., new key or Bell identity)
@@ -130,7 +133,8 @@ theme: Next
 
 ## Fixed: `em` CWT claim value type (-08)
 
-- Claim value type was "CBOR array"; now "CBOR-tagged Epoch ID"
+- Claim value type was "CBOR array";
+  now "CBOR-tagged Epoch ID"
 - IANA registration for the claim and media type name aligned
   (`application/epoch-marker+cbor`)
 
@@ -144,5 +148,6 @@ theme: Next
 
 ## Next steps
 
-- Request CBOR tag, CWT claim, media type, Content-Format and SMI allocations
-- Editors think that the draft is ready for WGLC
+- Request allocations:
+  CBOR tag, CWT claim, media type, Content-Format, SMI
+- Editors believe that the draft is ready for WGLC
